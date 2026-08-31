@@ -1,15 +1,17 @@
+export type ColorThemeId = "green" | "blue" | "violet" | "amber" | "coral" | "teal";
+
 export interface ThemeConfig {
+  id: ColorThemeId;
   name: string;
-  emoji: string;
-  color: 'green' | 'blue' | 'purple' | 'orange' | 'coral';
-  h: number;
-  s: string;
+  /** main swatch color */
+  swatch: string;
 }
 
 export const themes: ThemeConfig[] = [
-  { name: 'Vert C', emoji: '\u{1f7e2}', color: 'green', h: 142, s: '71%' },
-  { name: 'Bleu', emoji: '\u{1f535}', color: 'blue', h: 217, s: '91%' },
-  { name: 'Violet', emoji: '\u{1f7e3}', color: 'purple', h: 270, s: '76%' },
-  { name: 'Orange', emoji: '\u{1f7e0}', color: 'orange', h: 32, s: '95%' },
-  { name: 'Corail', emoji: '\u{1f534}', color: 'coral', h: 6, s: '78%' },
+  { id: "green",  name: "Émeraude", swatch: "#10b981" },
+  { id: "blue",   name: "Océan",    swatch: "#3b82f6" },
+  { id: "violet", name: "Améthyste",swatch: "#8b5cf6" },
+  { id: "amber",  name: "Ambre",    swatch: "#f59e0b" },
+  { id: "coral",  name: "Corail",   swatch: "#f43f5e" },
+  { id: "teal",   name: "Sarcelle", swatch: "#14b8a6" },
 ];
