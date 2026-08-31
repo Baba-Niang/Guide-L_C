@@ -1,11 +1,14 @@
 import type { NextConfig } from "next";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "/Guide-L_C";
+
 const nextConfig: NextConfig = {
-  output: "standalone",
-  /* config options here */
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+  output: "export",
+  basePath,
+  assetPrefix: `${basePath}/`,
+  trailingSlash: true,
+  images: { unoptimized: true },
+  typescript: { ignoreBuildErrors: true },
   reactStrictMode: false,
 };
 
