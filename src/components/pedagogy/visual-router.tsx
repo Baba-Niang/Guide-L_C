@@ -19,6 +19,7 @@ import {
   LifecycleDiagram,
   Compare2Diagram,
 } from "./visuals";
+import { StackVsHeapDiagram, MemoryMapDiagram, TwoZoneCompareDiagram } from "./extra-blocks";
 import type { VisualBlock } from "@/lib/curriculum-types";
 
 export function VisualRouter({ block }: { block: VisualBlock }) {
@@ -60,6 +61,12 @@ export function VisualRouter({ block }: { block: VisualBlock }) {
       return <LifecycleDiagram stages={d.stages} />;
     case "compare2":
       return <Compare2Diagram a={d.a} b={d.b} />;
+    case "stackVsHeap":
+      return <StackVsHeapDiagram title={d.title} />;
+    case "memoryMap":
+      return <MemoryMapDiagram regions={d.regions} />;
+    case "twoZoneCompare":
+      return <TwoZoneCompareDiagram leftTitle={d.leftTitle} rightTitle={d.rightTitle} rows={d.rows} />;
     default:
       return null;
   }

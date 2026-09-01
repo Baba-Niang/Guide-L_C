@@ -652,6 +652,67 @@ int main(void) {
             caption: "Le 1er élément est notes[0], le dernier est notes[4]. La taille est 5, mais l'indice max est 4.",
           },
           {
+            kind: "buildUp",
+            title: "Parcourir un tableau case par case",
+            intro: "Avance pas à pas : une boucle for visite chaque case l'une après l'autre.",
+            steps: [
+              {
+                kind: "narration",
+                caption: "On a un tableau `int t[5] = {10, 20, 30, 40, 50};`. On va le parcourir avec une boucle for, en partant de i = 0.",
+              },
+              {
+                kind: "code",
+                caption: "Boucle classique : i va de 0 à 4 (strictement inférieur à 5).",
+                code: `int t[5] = {10, 20, 30, 40, 50};
+for (int i = 0; i < 5; i++) {
+    printf("%d\\n", t[i]);
+}`,
+                activeLines: [2],
+              },
+              {
+                kind: "narration",
+                caption: "1ère itération : i = 0. On lit t[0] = 10.",
+              },
+              {
+                kind: "code",
+                caption: "i = 0 : t[0] est lu.",
+                code: `int t[5] = {10, 20, 30, 40, 50};
+for (int i = 0; i < 5; i++) {
+    printf("%d\\n", t[i]);   // i=0 → affiche 10
+}`,
+                activeLines: [3],
+              },
+              {
+                kind: "narration",
+                caption: "2e itération : i = 1. On lit t[1] = 20. Et ainsi de suite : 30, 40, 50.",
+              },
+              {
+                kind: "code",
+                caption: "i = 4 (dernière itération) : on lit t[4] = 50. Puis i devient 5, la condition i < 5 est fausse, on sort de la boucle.",
+                code: `int t[5] = {10, 20, 30, 40, 50};
+for (int i = 0; i < 5; i++) {
+    printf("%d\\n", t[i]);   // i=4 → affiche 50
+}
+// i=5 : condition i<5 fausse → on sort`,
+                activeLines: [3, 5],
+              },
+              {
+                kind: "narration",
+                caption: "Si on avait écrit `i <= 5` au lieu de `i < 5`, on aurait accédé à t[5] qui n'existe pas → débordement ! C'est l'erreur off-by-one, la plus fréquente en C.",
+              },
+            ],
+          },
+          {
+            kind: "comparisonTable",
+            title: "i < n  vs  i <= n  : la différence cruciale",
+            columns: ["Condition", "Indices visités", "Nombre d'itérations", "Sécurité"],
+            rows: [
+              { cells: ["i < 5", "0, 1, 2, 3, 4", "5", "✓ Correct"], tone: "good" },
+              { cells: ["i <= 5", "0, 1, 2, 3, 4, 5", "6", "✗ Débordement !"], tone: "bad" },
+              { cells: ["i < 4", "0, 1, 2, 3", "4", "⚠ Oublie la dernière case"], tone: "default" },
+            ],
+          },
+          {
             kind: "reveal",
             label: "Pourquoi les indices commencent-ils à 0 ?",
             hint: "Clique pour révéler",
@@ -898,7 +959,7 @@ for (int i = 1; i < 5; i++) {
   },
 
   // ============================================================
-  // CHAPITRE 8 — LES POINTEURS
+  // CHAPITRE 8 — LES POINTEURS (V4.1 — refonte visuelle massive)
   // ============================================================
   {
     id: 8,
@@ -907,66 +968,149 @@ for (int i = 1; i < 5; i++) {
     shortTitle: "Pointeurs",
     icon: "ArrowRightLeft",
     keywords: ["pointeur", "adresse", "&", "*", "mémoire", "déréférencement", "NULL", "passage par adresse"],
-    goal: "Manipuler des adresses mémoire pour faire des choses impossibles avec de simples variables.",
-    minutes: 22,
+    goal: "Voir graphiquement comment une variable, son adresse et un pointeur s'articulent.",
+    minutes: 25,
     levels: [
       {
         id: "comprendre",
         title: "Je comprends",
-        subtitle: "Avant le pointeur, il faut la variable",
+        subtitle: "Naissance d'un pointeur, pas à pas",
         blocks: [
-          {
-            kind: "story",
-            eyebrow: "Construction progressive",
-            steps: [
-              { text: "On veut comprendre les pointeurs. Mais avant, il faut comprendre 4 mots : variable, mémoire, adresse, valeur." },
-              { text: "Une VARIABLE est une case mémoire avec un nom." },
-              { text: "La MÉMOIRE est l'ensemble de toutes les cases, numérotées." },
-              { text: "L'ADRESSE est le numéro d'une case. Comme le numéro d'une maison dans une rue." },
-              { text: "La VALEUR est ce qu'on a rangé dans la case." },
-            ],
-          },
           {
             kind: "analogy",
             real: {
               icon: "🏠",
-              title: "Une maison",
-              desc: "La maison « chez Paul » (variable) est au 12 rue des Lilas (adresse). À l'intérieur il y a 4 personnes (valeur).",
+              title: "Une maison dans une rue",
+              desc: "La maison « chez Paul » (le nom) est au numéro 12 de la rue (l'adresse). À l'intérieur il y a 4 personnes (la valeur).",
             },
             code: {
               icon: "📦",
-              title: "Une variable",
-              desc: "La variable age (nom) est à l'adresse 0x7ffc. Sa valeur est 20.",
+              title: "Une variable en mémoire",
+              desc: "La variable age (le nom) est à l'adresse 0x7ffc. Sa valeur est 20.",
             },
-            link: "Adresse = OÙ. Valeur = QUOI. Variable = case mémoire avec un nom humain.",
+            link: "Adresse = OÙ (numéro de la case). Valeur = QUOI (ce qu'il y a dedans). Variable = la case elle-même, avec un nom humain.",
           },
           {
             kind: "vocab",
             terms: [
-              { word: "Variable", def: "Une case mémoire avec un nom. Ex: `int age = 20;`" },
-              { word: "Adresse", def: "Le numéro de la case mémoire où se trouve la variable. S'écrit en hexadécimal (ex: 0x7ffc)." },
-              { word: "Valeur", def: "Ce que contient la variable. Ex: 20 dans `int age = 20;`" },
-              { word: "& (adresse de)", def: "Opérateur qui donne l'ADRESSE d'une variable. `&age` = l'adresse de age." },
-              { word: "* (déréférencement)", def: "Opérateur qui donne la VALEUR pointée par une adresse. Si p contient l'adresse de age, `*p` donne 20." },
-              { word: "Pointeur", def: "Une variable spéciale qui contient une ADRESSE (pas une valeur classique). « Pointe vers » une autre variable." },
+              { word: "Variable", def: "Une case mémoire avec un nom. Ex: `int age = 20;`", example: "int age = 20;" },
+              { word: "Adresse", def: "Le numéro de la case. Comme un numéro de maison. S'écrit en hexadécimal.", example: "0x7ffc" },
+              { word: "Valeur", def: "Ce qu'il y a DANS la case.", example: "20" },
+              { word: "&", def: "Donne l'ADRESSE d'une variable. Se lit « adresse de ».", example: "&age → 0x7ffc" },
+              { word: "*", def: "Donne la VALEUR stockée à une adresse. Se lit « valeur pointée par ».", example: "*ptr → 20" },
+              { word: "Pointeur", def: "Une variable spéciale qui contient une ADRESSE (pas une valeur classique).", example: "int *p;" },
             ],
           },
           {
-            kind: "visual",
-            diagram: { type: "memory", vars: [{ name: "age", type: "int", value: "20", addr: "0x7ffc" }] },
-            caption: "La variable age contient 20, et se trouve à l'adresse 0x7ffc.",
+            kind: "buildUp",
+            title: "Comment naît un pointeur",
+            intro: "Clique sur « Suivant » pour voir apparaître chaque concept, l'un après l'autre.",
+            steps: [
+              {
+                kind: "narration",
+                caption: "Tout commence par une variable ordinaire. On déclare `int age = 20;`. La mémoire réserve une case, lui donne le nom age, et y range 20.",
+              },
+              {
+                kind: "memory",
+                caption: "Voici la variable age. Elle contient 20. En dessous, son adresse : 0x7ffc. C'est sa position dans la grande rue de la mémoire.",
+                vars: [{ name: "age", type: "int", value: "20", addr: "0x7ffc", tone: "new" }],
+              },
+              {
+                kind: "narration",
+                caption: "Maintenant, on va demander à l'ordinateur : « donne-moi l'ADRESSE de age ». Pour ça, on utilise l'opérateur & (et commercial).",
+              },
+              {
+                kind: "code",
+                caption: "On écrit `&age`. Le & transforme la variable en son adresse. Le résultat est 0x7ffc.",
+                code: `int age = 20;
+&age;   // ← ceci vaut 0x7ffc`,
+                activeLines: [2],
+              },
+              {
+                kind: "narration",
+                caption: "Cette adresse, on va la RANGER dans une nouvelle variable. Mais pas n'importe quelle variable : un POINTEUR. Un pointeur est fait exprès pour stocker des adresses.",
+              },
+              {
+                kind: "code",
+                caption: "On déclare `int *ptr = &age;`. Le * dans la déclaration dit « ptr est un pointeur sur int ». On l'initialise avec l'adresse de age.",
+                code: `int age = 20;
+int *ptr = &age;   // ptr contient maintenant 0x7ffc`,
+                activeLines: [2],
+              },
+              {
+                kind: "pointer",
+                caption: "Voilà ! ptr contient l'adresse de age (0x7ffc). On dit que « ptr pointe vers age ». La flèche montre ce lien.",
+                varName: "age",
+                ptrName: "ptr",
+                value: "20",
+                addr: "0x7ffc",
+                showArrow: true,
+                showDeref: false,
+              },
+              {
+                kind: "narration",
+                caption: "Maintenant, on veut récupérer la VALEUR de age, mais EN PASSANT par ptr. Pour ça, on utilise l'opérateur * (étoile) : c'est l'inverse de &.",
+              },
+              {
+                kind: "code",
+                caption: "On écrit `*ptr`. Le * (en expression, pas en déclaration) dit « va voir ce qu'il y a à l'adresse pointée ». Comme ptr pointe vers age, *ptr vaut 20.",
+                code: `int age = 20;
+int *ptr = &age;
+*ptr;   // ← ceci vaut 20`,
+                activeLines: [3],
+              },
+              {
+                kind: "pointer",
+                caption: "On lit : *ptr = 20. On a retrouvé la valeur de age, EN PASSANT par le pointeur. C'est ça, le déréférencement.",
+                varName: "age",
+                ptrName: "ptr",
+                value: "20",
+                addr: "0x7ffc",
+                showArrow: true,
+                showDeref: true,
+              },
+              {
+                kind: "narration",
+                caption: "Encore plus fort : si on écrit `*ptr = 25;`, on MODIFIE la case pointée par ptr. Comme ptr pointe vers age, c'est age qui est modifié !",
+              },
+              {
+                kind: "code",
+                caption: "`*ptr = 25;` range 25 à l'adresse pointée par ptr. Donc dans age. Sans jamais écrire `age =` directement.",
+                code: `int age = 20;
+int *ptr = &age;
+*ptr = 25;   // age devient 25 !
+printf("%d", age);   // affiche 25`,
+                activeLines: [3],
+              },
+              {
+                kind: "pointer",
+                caption: "Et voilà : age vaut maintenant 25. On l'a modifié INDIRECTEMENT, via son adresse. C'est toute la puissance des pointeurs.",
+                varName: "age",
+                ptrName: "ptr",
+                value: "25",
+                addr: "0x7ffc",
+                showArrow: true,
+                showDeref: true,
+                writingValue: "25",
+              },
+            ],
           },
           {
-            kind: "visual",
-            diagram: { type: "pointer", varName: "age", ptrName: "ptr", value: "20", addr: "0x7ffc" },
-            caption: "Le pointeur ptr CONTIENT l'adresse de age. *ptr donne la valeur pointée (20).",
+            kind: "comparisonTable",
+            title: "& et * : le duo symétrique",
+            columns: ["Opérateur", "Nom", "Direction", "Exemple"],
+            rows: [
+              { cells: ["&", "adresse de", "Variable → Adresse", "`&age` donne `0x7ffc`"], tone: "highlight" },
+              { cells: ["*", "déréférencement", "Adresse → Valeur", "`*ptr` donne `20`"], tone: "highlight" },
+              { cells: ["* (en déclaration)", "type pointeur", "Déclare un pointeur", "`int *ptr;`"], tone: "default" },
+            ],
           },
           {
             kind: "reveal",
-            label: "Pourquoi utiliser des pointeurs ?",
+            label: "Pourquoi le * sert à deux choses différentes ?",
             hint: "Clique pour révéler",
             content:
-              "Trois raisons majeures : 1) Permettre à une fonction de MODIFIER une variable de l'appelant (rappel chap. 6 : les paramètres sont des copies). 2) Manipuler de gros tableaux sans les recopier. 3) Allouer de la mémoire dynamiquement (chapitre 11). Sans pointeurs, on est très limité en C.",
+              "1) Dans une DÉCLARATION (`int *ptr;`), le * signifie « ptr est un pointeur sur int ». 2) Dans une EXPRESSION (`*ptr = 5;`), le * signifie « la valeur pointée ». C'est le même symbole, deux rôles. C'est déroutant au début, mais ça devient naturel.",
           },
           {
             kind: "quiz",
@@ -986,7 +1130,7 @@ for (int i = 1; i < 5; i++) {
       {
         id: "lire",
         title: "Je sais lire",
-        subtitle: "& et *, le duo incontournable",
+        subtitle: "Le code, expliqué visuellement",
         blocks: [
           {
             kind: "codeWalk",
@@ -1017,33 +1161,44 @@ int main(void) {
             },
           },
           {
-            kind: "reveal",
-            label: "Pourquoi le * sert à deux choses différentes ?",
-            hint: "Clique pour révéler",
-            content:
-              "1) Dans une DÉCLARATION (`int *ptr;`), le * signifie « ptr est un pointeur sur int ». 2) Dans une EXPRESSION (`*ptr = 5;`), le * signifie « la valeur pointée ». C'est le même symbole, deux rôles. C'est déroutant au début, mais ça devient naturel.",
-          },
-          {
-            kind: "codeWalk",
-            filename: "modifier.c",
-            code: `#include <stdio.h>
-
-int main(void) {
-    int age = 20;
-    int *ptr = &age;
-
-    *ptr = 25;
-
-    printf("age = %d\\n", age);
-    return 0;
-}`,
-            output: "age = 25",
-            explanations: {
-              4: "On déclare age = 20.",
-              5: "On déclare ptr et on l'initialise avec l'adresse de age. ptr pointe vers age.",
-              7: "*ptr = 25 : on range 25 à l'ADRESSE pointée par ptr. Comme ptr pointe vers age, on a en fait modifié age !",
-              9: "Et effectivement, age vaut maintenant 25. On a modifié age INDIRECTEMENT, via son pointeur.",
-            },
+            kind: "buildUp",
+            title: "Modification via pointeur",
+            intro: "Comment un pointeur peut modifier une variable à distance.",
+            steps: [
+              {
+                kind: "narration",
+                caption: "On a age = 20, et un pointeur ptr qui pointe vers age. Jusqu'ici, tout va bien.",
+              },
+              {
+                kind: "pointer",
+                caption: "État initial : age contient 20. ptr contient l'adresse de age (0x7ffc). La flèche montre le lien.",
+                varName: "age",
+                ptrName: "ptr",
+                value: "20",
+                addr: "0x7ffc",
+                showArrow: true,
+                showDeref: true,
+              },
+              {
+                kind: "code",
+                caption: "On écrit `*ptr = 25;`. Le * dit « va à l'adresse pointée ». Le = dit « range cette valeur ».",
+                code: `int age = 20;
+int *ptr = &age;
+*ptr = 25;   // ← ON ÉCRIT 25 À L'ADRESSE DE age`,
+                activeLines: [3],
+              },
+              {
+                kind: "pointer",
+                caption: "Résultat : age vaut maintenant 25. On ne l'a pas touché directement, mais via ptr. C'est ça, la magie des pointeurs.",
+                varName: "age",
+                ptrName: "ptr",
+                value: "25",
+                addr: "0x7ffc",
+                showArrow: true,
+                showDeref: true,
+                writingValue: "25",
+              },
+            ],
           },
           {
             kind: "challenge",
@@ -1085,6 +1240,20 @@ int main(void) {
             },
           },
           {
+            kind: "visual",
+            diagram: {
+              type: "twoZoneCompare",
+              leftTitle: "Passage par valeur (rappel ch.6)",
+              rightTitle: "Passage par adresse (pointeurs)",
+              rows: [
+                { left: "f(x) reçoit une COPIE de x", right: "f(&x) reçoit l'ADRESSE de x" },
+                { left: "f ne peut PAS modifier x", right: "f PEUT modifier x via *ptr" },
+                { left: "Sûr mais limité", right: "Puissant mais à utiliser avec soin" },
+              ],
+            },
+            caption: "Les pointeurs déverrouillent la modification à distance. Indispensable pour les fonctions comme echanger().",
+          },
+          {
             kind: "quiz",
             question: "Que fait `*ptr = 5;` si ptr pointe vers la variable n ?",
             options: [
@@ -1104,6 +1273,25 @@ int main(void) {
         title: "Je sais faire",
         subtitle: "Éviter les pièges mortels",
         blocks: [
+          {
+            kind: "comparisonTable",
+            title: "Les 3 pièges mortels des pointeurs",
+            columns: ["Piège", "Symptôme", "Correction"],
+            rows: [
+              {
+                cells: ["Pointeur non initialisé", "Crash aléatoire, écriture sauvage en mémoire", "Toujours initialiser : `int *p = &n;` ou `NULL`"],
+                tone: "bad",
+              },
+              {
+                cells: ["Déréférencer NULL", "Segmentation fault immédiat", "Tester `if (p != NULL)` avant `*p`"],
+                tone: "bad",
+              },
+              {
+                cells: ["Pointeur pendant (après free)", "Comportement indéfini, bugs fantômes", "Mettre `p = NULL;` après `free(p);`"],
+                tone: "bad",
+              },
+            ],
+          },
           {
             kind: "error",
             title: "Erreur : pointeur non initialisé",
@@ -1206,12 +1394,12 @@ int *p = &compteur;
             title: "Bilan du chapitre 8",
             bullets: [
               { text: "Variable = case mémoire avec un nom. Adresse = numéro de la case. Valeur = contenu." },
-              { text: "& donne l'adresse d'une variable. * donne la valeur pointée par une adresse." },
-              { text: "Un pointeur est une variable qui contient une adresse." },
-              { text: "`int *p = &n;` déclare p et le fait pointer vers n." },
-              { text: "`*p = 5;` modifie la variable pointée par p (donc n)." },
+              { text: "& (adresse de) transforme une variable en son adresse. * (déréférencement) fait l'inverse." },
+              { text: "Un pointeur est une variable qui contient une adresse : `int *p = &n;`" },
+              { text: "`*p = 5;` modifie la variable pointée par p (donc n), sans toucher n directement." },
               { text: "Un pointeur permet à une fonction de modifier une variable de l'appelant." },
-              { text: "Toujours initialiser un pointeur : &variable ou NULL. Ne jamais déréférencer NULL." },
+              { text: "3 pièges : non-initialisé, NULL déréférencé, pointeur pendant après free." },
+              { text: "Règle d'or : toujours initialiser (avec &var ou NULL), jamais déréférencer NULL." },
             ],
           },
           {

@@ -552,6 +552,71 @@ int main(void) {
             caption: "malloc réserve sur le tas. free libère. Sans free, la mémoire reste occupée.",
           },
           {
+            kind: "visual",
+            diagram: {
+              type: "memoryMap",
+              regions: [
+                { name: "Code", desc: "Le programme compilé (read-only)", tone: "code" },
+                { name: "Globales", desc: "Variables globales et static", tone: "global" },
+                { name: "Tas (Heap)", desc: "malloc / calloc / free — c'est TOI qui gères", tone: "heap" },
+                { name: "Pile (Stack)", desc: "Variables locales, appels de fonction — automatique", tone: "stack" },
+              ],
+            },
+            caption: "La mémoire est découpée en 4 zones. malloc travaille sur le TAS. Tes variables locales vivent sur la PILE.",
+          },
+          {
+            kind: "visual",
+            diagram: { type: "stackVsHeap", title: "Pile vs Tas : les deux mondes" },
+            caption: "La pile est petite et auto-gérée. Le tas est grand mais c'est TOI qui le gères avec malloc/free.",
+          },
+          {
+            kind: "buildUp",
+            title: "Le cycle de vie malloc → free",
+            intro: "Avance pas à pas pour voir la mémoire évoluer.",
+            steps: [
+              {
+                kind: "narration",
+                caption: "Au départ, le tas est vide. Le programme n'a rien demandé.",
+              },
+              {
+                kind: "code",
+                caption: "On écrit `int *tab = malloc(3 * sizeof(int));`. On demande 12 octets (3 ints) au système.",
+                code: `int *tab = malloc(3 * sizeof(int));`,
+                activeLines: [1],
+              },
+              {
+                kind: "narration",
+                caption: "malloc trouve 12 octets libres dans le tas, et renvoie l'adresse du début du bloc. tab contient maintenant cette adresse.",
+              },
+              {
+                kind: "code",
+                caption: "On remplit les 3 cases : tab[0]=10, tab[1]=20, tab[2]=30.",
+                code: `int *tab = malloc(3 * sizeof(int));
+tab[0] = 10;
+tab[1] = 20;
+tab[2] = 30;`,
+                activeLines: [2, 3, 4],
+              },
+              {
+                kind: "narration",
+                caption: "Le bloc est utilisé. Tant qu'on ne libère pas, ces 12 octets restent réservés pour nous.",
+              },
+              {
+                kind: "code",
+                caption: "Quand on n'a plus besoin de tab, on appelle `free(tab);`. Le système récupère les 12 octets.",
+                code: `int *tab = malloc(3 * sizeof(int));
+// ... on utilise tab ...
+free(tab);   // ← on libère !
+tab = NULL;  // bonne pratique`,
+                activeLines: [3, 4],
+              },
+              {
+                kind: "narration",
+                caption: "C'est fait. La mémoire est rendue au système. Si on oubliait free → fuite mémoire (le bloc resterait occupé jusqu'à la fin du programme).",
+              },
+            ],
+          },
+          {
             kind: "reveal",
             label: "Pourquoi ne pas toujours utiliser malloc ?",
             hint: "Clique pour révéler",
@@ -1443,6 +1508,85 @@ int main(void) {
             hint: "Clique pour révéler",
             content:
               "factorielle(3) = 3 * factorielle(2) [en attente]\n  factorielle(2) = 2 * factorielle(1) [en attente]\n    factorielle(1) : cas de base → renvoie 1\n  factorielle(2) = 2 * 1 = 2\nfactorielle(3) = 3 * 2 = 6\n\nChaque appel attend que le suivant soit fini, puis se résout. C'est la pile d'appels qui mémorise les appels en attente.",
+          },
+          {
+            kind: "buildUp",
+            title: "La pile d'appels de factorielle(3)",
+            intro: "Avance pas à pas : chaque appel s'empile, puis les résultats remontent.",
+            steps: [
+              {
+                kind: "narration",
+                caption: "On appelle factorielle(3). La machine empile cet appel sur la pile. Il doit attendre de connaître factorielle(2) pour pouvoir calculer 3 * factorielle(2).",
+              },
+              {
+                kind: "stack",
+                caption: "État de la pile : factorielle(3) est en attente. Elle a besoin du résultat de factorielle(2).",
+                frames: [
+                  { label: "factorielle(3)", value: "3 * ?", tone: "active" },
+                ],
+              },
+              {
+                kind: "narration",
+                caption: "factorielle(3) appelle factorielle(2). Celui-ci s'empile AU-DESSUS du précédent.",
+              },
+              {
+                kind: "stack",
+                caption: "Pile : factorielle(3) en attente, factorielle(2) au sommet (en cours).",
+                frames: [
+                  { label: "factorielle(2)", value: "2 * ?", tone: "active" },
+                  { label: "factorielle(3)", value: "3 * ?", tone: "pending" },
+                ],
+              },
+              {
+                kind: "narration",
+                caption: "factorielle(2) appelle factorielle(1). Encore un empilement.",
+              },
+              {
+                kind: "stack",
+                caption: "Pile : trois appels empilés. factorielle(1) au sommet.",
+                frames: [
+                  { label: "factorielle(1)", value: "cas de base", tone: "active" },
+                  { label: "factorielle(2)", value: "2 * ?", tone: "pending" },
+                  { label: "factorielle(3)", value: "3 * ?", tone: "pending" },
+                ],
+              },
+              {
+                kind: "narration",
+                caption: "factorielle(1) : n ≤ 1, c'est le CAS DE BASE. Pas de nouvel appel. On renvoie 1 immédiatement.",
+              },
+              {
+                kind: "stack",
+                caption: "factorielle(1) se résout : renvoie 1. Il se dépile.",
+                frames: [
+                  { label: "factorielle(1)", value: "→ 1", tone: "resolved" },
+                  { label: "factorielle(2)", value: "2 * ?", tone: "active" },
+                  { label: "factorielle(3)", value: "3 * ?", tone: "pending" },
+                ],
+              },
+              {
+                kind: "narration",
+                caption: "factorielle(2) reçoit 1. Il peut calculer 2 * 1 = 2 et se dépiler à son tour.",
+              },
+              {
+                kind: "stack",
+                caption: "factorielle(2) se résout : renvoie 2. La pile diminue.",
+                frames: [
+                  { label: "factorielle(2)", value: "2 * 1 = 2", tone: "resolved" },
+                  { label: "factorielle(3)", value: "3 * ?", tone: "active" },
+                ],
+              },
+              {
+                kind: "narration",
+                caption: "factorielle(3) reçoit 2. Il calcule 3 * 2 = 6 et se dépile.",
+              },
+              {
+                kind: "stack",
+                caption: "factorielle(3) se résout : renvoie 6. La pile est vide. Résultat final : 6.",
+                frames: [
+                  { label: "factorielle(3)", value: "3 * 2 = 6", tone: "resolved" },
+                ],
+              },
+            ],
           },
           {
             kind: "codeWalk",

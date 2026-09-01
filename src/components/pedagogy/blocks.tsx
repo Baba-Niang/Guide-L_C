@@ -15,6 +15,9 @@ import {
   Terminal,
 } from "lucide-react";
 import { CodeBlock } from "./code-block";
+import { BuildUpBlock } from "./build-up";
+import { ComparisonTableBlock, FlowStepsBlock } from "./extra-blocks";
+export { BuildUpBlock, ComparisonTableBlock, FlowStepsBlock };
 
 // ============================================================
 // Story block (progressive reveal steps)

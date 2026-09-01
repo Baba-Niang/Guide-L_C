@@ -26,6 +26,9 @@ import {
   QuizBlock,
   RecapBlock,
   CodeWalkthroughBlock,
+  BuildUpBlock,
+  ComparisonTableBlock,
+  FlowStepsBlock,
 } from "@/components/pedagogy/blocks";
 
 // ============================================================
@@ -119,6 +122,15 @@ function BlockRenderer({
       )}
       {block.kind === "recap" && <RecapBlock title={block.title} bullets={block.bullets} />}
       {block.kind === "text" && <TextBlock paragraphs={block.paragraphs} />}
+      {block.kind === "buildUp" && (
+        <BuildUpBlock title={block.title} intro={block.intro} steps={block.steps} />
+      )}
+      {block.kind === "comparisonTable" && (
+        <ComparisonTableBlock title={block.title} columns={block.columns} rows={block.rows} />
+      )}
+      {block.kind === "flowSteps" && (
+        <FlowStepsBlock title={block.title} steps={block.steps} />
+      )}
     </motion.div>
   );
 }

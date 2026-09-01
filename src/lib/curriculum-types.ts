@@ -61,8 +61,75 @@ export interface VisualBlock {
     | { type: "modules"; files: { name: string; desc: string }[] }
     | { type: "files3"; steps: { name: string; desc: string }[] }
     | { type: "lifecycle"; stages: { l: string; d: string }[] }
-    | { type: "compare2"; a: { t: string; d: string }; b: { t: string; d: string } };
+    | { type: "compare2"; a: { t: string; d: string }; b: { t: string; d: string } }
+    | { type: "stackVsHeap"; title?: string }
+    | { type: "memoryMap"; regions: { name: string; desc: string; tone: "stack" | "heap" | "global" | "code" }[] }
+    | { type: "twoZoneCompare"; leftTitle: string; rightTitle: string; rows: { left: string; right: string }[] };
   caption?: string;
+}
+
+// Animated step-by-step walkthrough. User clicks "Suivant" to advance
+// and the diagram/code evolves on each step.
+export interface BuildUpBlock {
+  kind: "buildUp";
+  /** overall title */
+  title?: string;
+  /** what's being built up (e.g. "Comment naît un pointeur") */
+  intro?: string;
+  /** each step adds or transforms the visual */
+  steps: BuildUpStep[];
+}
+
+export type BuildUpStep =
+  | {
+      kind: "narration";
+      caption: string;
+    }
+  | {
+      kind: "memory";
+      caption: string;
+      vars: { name: string; type: string; value: string; addr?: string; tone?: "default" | "new" | "highlight" | "muted" }[];
+    }
+  | {
+      kind: "pointer";
+      caption: string;
+      varName: string;
+      ptrName: string;
+      value: string;
+      addr: string;
+      /** show an arrow from ptr to var */
+      showArrow?: boolean;
+      /** show *ptr = value label */
+      showDeref?: boolean;
+      /** highlight *ptr write */
+      writingValue?: string;
+    }
+  | {
+      kind: "code";
+      caption: string;
+      code: string;
+      /** which lines are highlighted in this step */
+      activeLines?: number[];
+    }
+  | {
+      kind: "stack";
+      caption: string;
+      /** bottom-up stack frames (most recent on top) */
+      frames: { label: string; value?: string; tone?: "active" | "resolved" | "pending" }[];
+    };
+
+export interface ComparisonTableBlock {
+  kind: "comparisonTable";
+  title?: string;
+  columns: string[];
+  rows: { cells: string[]; tone?: "default" | "good" | "bad" | "highlight" }[];
+}
+
+export interface FlowStepsBlock {
+  kind: "flowSteps";
+  title?: string;
+  /** numbered steps with description; rendered as connected cards */
+  steps: { title: string; desc: string; icon?: string }[];
 }
 
 export interface CodeWalkthroughBlock {
@@ -132,6 +199,9 @@ export type PedBlock =
   | AnalogyBlock
   | VocabBlock
   | VisualBlock
+  | BuildUpBlock
+  | ComparisonTableBlock
+  | FlowStepsBlock
   | CodeWalkthroughBlock
   | RevealBlock
   | ErrorBlock
