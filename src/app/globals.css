@@ -1285,3 +1285,92 @@
   .topbar-links { display:none; }
   .topbar-actions { margin-left:auto; padding-left:0; border-left:0; }
 }
+
+/* ============================================================
+   FINAL UML-STYLE POLISH — Guide C
+   ============================================================ */
+.content-wide { width: min(1180px, calc(100% - 2rem)); }
+
+.app-topbar {
+  height: 88px;
+  min-height: 88px;
+  padding: 0 2rem;
+  gap: 1.25rem;
+  background: linear-gradient(100deg, #ffffff 0%, #fbfcff 52%, var(--theme-50) 100%);
+}
+.topbar-profile { gap: .75rem; }
+.topbar-avatar {
+  width: 58px; height: 58px; padding: 0; overflow: hidden;
+  background: linear-gradient(135deg, var(--theme-500), #7c3aed);
+  border: 3px solid var(--theme-100);
+  border-radius: 50%;
+}
+.topbar-avatar img { width:100%; height:100%; object-fit:cover; object-position:center 28%; display:block; }
+.topbar-profile-text { line-height: 1.05; }
+.topbar-profile-name { font-size: 15px; font-weight: 800; color:#1f2937; }
+.topbar-profile-role { margin-top:.22rem; font-size:11px; color:#718096; }
+.dark .topbar-profile-name { color:#eef2f7; }
+.dark .topbar-profile-role { color:#94a3b8; }
+.topbar-motto {
+  margin-left: 1.25rem; padding-left: 1.5rem;
+  font-size: 19px; font-weight: 800; color: #6d4df5;
+  border-left: 1px solid #dfe5ee;
+  white-space: nowrap;
+}
+.topbar-links { margin-left:auto; gap:1.05rem; padding-left:1rem; }
+.topbar-link { min-width:48px; color:#59667a; font-size:11px; }
+.topbar-link img { width:36px; height:36px; object-fit:contain; display:block; }
+.topbar-link.icon-only { min-width:42px; }
+.topbar-link.icon-only img { width:34px; height:34px; }
+.topbar-link:hover { color:var(--theme-600); }
+.topbar-divider { height:42px; margin:0 .15rem; background:#dfe5ee; }
+.topbar-actions { margin-left:.25rem; padding-left:.75rem; }
+
+/* White/light navigation like the UML guide */
+.app-sidebar { width: 300px; background:#f8fafc; color:#59667a; border-right:1px solid #e1e7ef; }
+.sb-item { font-size:.93rem; padding:.62rem .9rem; }
+.sb-item .sb-num { width:31px; height:31px; font-size:.7rem; }
+
+/* More breathing room and a wider reading canvas */
+.app-main { background:#f7f9fc; }
+.chapter-hero { padding:2.35rem 2rem 2.1rem; background:linear-gradient(135deg,var(--theme-600) 0%,var(--theme-500) 56%,var(--theme-700) 100%); }
+.chapter-hero-inner { max-width:1180px; }
+.chapter-hero h1 { font-size:clamp(2.15rem,4vw,3.35rem); }
+.chapter-hero p { font-size:1.08rem; }
+.ped-card { padding:2rem; border-radius:1.35rem; }
+.ped-card h3 { font-size:1.55rem; }
+.story-step { font-size:1.08rem; }
+.vocab-card .v-def { font-size:1rem; }
+
+/* Keep navigation visible without stealing the learning area */
+.chapter-foot-nav {
+  padding:.42rem 1rem;
+  min-height:44px;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(12px);
+  box-shadow:0 -3px 14px rgba(15,23,42,.05);
+}
+.chapter-foot-nav button { padding:.32rem .7rem !important; font-size:.82rem !important; }
+.chapter-foot-nav > span { font-size:.78rem !important; color:var(--muted-foreground); }
+.dark .chapter-foot-nav { background:rgba(19,24,31,.92); }
+
+/* Code: never collapse a C program onto one visual line */
+.code-body { font-size:.94rem; line-height:1.75; overflow-x:auto; }
+.code-line { white-space:pre !important; min-width:max-content; }
+.code-line .cl-content { white-space:pre !important; }
+
+@media (max-width: 1050px) {
+  .app-topbar { padding:0 1rem; }
+  .topbar-motto { display:none; }
+  .topbar-links { gap:.65rem; }
+}
+@media (max-width: 760px) {
+  .app-topbar { height:64px; min-height:64px; padding:0 .65rem; gap:.45rem; }
+  .topbar-avatar { width:44px; height:44px; }
+  .topbar-profile-role { display:none; }
+  .topbar-profile-name { display:block; font-size:13px; }
+  .topbar-links { display:none; }
+  .topbar-actions { margin-left:auto; padding-left:0; border-left:0; }
+  .content-wide { width:calc(100% - 1rem); }
+  .chapter-hero { padding:1.6rem 1rem 1.45rem; }
+}

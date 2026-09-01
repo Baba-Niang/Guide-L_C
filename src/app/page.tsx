@@ -212,9 +212,7 @@ function ChapterPage({ chapter }: { chapter: Chapter }) {
       <section className="chapter-hero text-white">
         <div className="chapter-hero-inner">
           <div className="flex items-center gap-2.5 mb-3 flex-wrap">
-            <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-white/15 backdrop-blur-sm tracking-wide">
-              CHAPITRE {String(chapter.id).padStart(2, "0")}
-            </span>
+            
             <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-white/10 flex items-center gap-1">
               <Clock size={11} /> {chapter.minutes} min
             </span>
@@ -257,7 +255,7 @@ function ChapterPage({ chapter }: { chapter: Chapter }) {
       </section>
 
       {/* Body */}
-      <div className="max-w-3xl mx-auto px-4 md:px-6 py-6">
+      <div className="content-wide mx-auto px-4 md:px-8 py-7">
         <LevelTabs
           chapterId={chapter.id}
           current={currentLevel}
@@ -457,7 +455,7 @@ function HomePage() {
 
       {/* Progress */}
       {doneCount > 0 && (
-        <div className="max-w-3xl mx-auto px-6 py-8">
+        <div className="content-wide mx-auto px-6 py-8">
           <div className="flex items-center justify-between mb-2.5">
             <h2 className="text-lg font-bold">Ta progression</h2>
             <span className="text-sm font-bold text-[var(--theme-500)] tabular-nums">{gp}%</span>
@@ -472,7 +470,7 @@ function HomePage() {
       )}
 
       {/* How it works */}
-      <div className="max-w-3xl mx-auto px-6 py-6">
+      <div className="content-wide mx-auto px-6 py-6">
         <h2 className="text-xl font-bold mb-4">Comment marche ce cours ?</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {[
@@ -501,7 +499,7 @@ function HomePage() {
       </div>
 
       {/* Chapters grid */}
-      <div className="max-w-3xl mx-auto px-6 pb-14">
+      <div className="content-wide mx-auto px-6 pb-14">
         <h2 className="text-xl font-bold mb-4">Sommaire du cours</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {chapters.map((ch, i) => {
@@ -866,51 +864,51 @@ export default function GuidePage() {
 
   return (
     <div className="app-shell">
-      {/* Topbar */}
+      {/* Topbar — identité + ressources */}
       <header className="app-topbar">
         <div className="topbar-profile">
           <button onClick={() => setView("home")} className="topbar-avatar" aria-label="Accueil">
-            <span>BN</span>
+            <img src="/Guide-L_C/baba-niang.jpg" alt="Baba Niang" />
           </button>
-          <div className="topbar-profile-name">Baba Niang</div>
+          <div className="topbar-profile-text">
+            <div className="topbar-profile-name">Baba Niang</div>
+            <div className="topbar-profile-role">Étudiant</div>
+          </div>
         </div>
 
-        <div className="topbar-motto" aria-label="Devise">
-          ◆ Discipline-Constance-Rigueur ◆
-        </div>
+        <div className="topbar-motto" aria-label="Devise">◆ Discipline-Constance-Rigueur ◆</div>
 
         <nav className="topbar-links" aria-label="Raccourcis Baba Niang">
           <a href="https://baba-niang.github.io/Guide-Git-Github/" target="_blank" rel="noreferrer" className="topbar-link" title="Guide Git & GitHub">
-            <span className="brand-logo git-logo">◆</span><span>Git</span>
-          </a>
-          <a href="https://baba-niang.github.io/Guide-Java/" target="_blank" rel="noreferrer" className="topbar-link" title="Guide Java">
-            <span className="brand-logo java-logo">☕</span><span>Java</span>
-          </a>
-          <a href="https://baba-niang.github.io/Guide-Bootstrap-Bigginers/" target="_blank" rel="noreferrer" className="topbar-link" title="Guide Bootstrap">
-            <span className="brand-logo bootstrap-logo">B</span><span>Bootstrap</span>
-          </a>
-          <a href="https://baba-niang.github.io/Guide-UML-B/" target="_blank" rel="noreferrer" className="topbar-link" title="Guide UML">
-            <span className="brand-logo uml-logo">UML</span><span>UML</span>
+            <img src="https://cdn.simpleicons.org/git/F05032" alt="Git" />
+            <span>Git</span>
           </a>
           <a href="https://baba-niang.github.io/Guide-PHP/" target="_blank" rel="noreferrer" className="topbar-link" title="Guide PHP">
-            <span className="brand-logo php-logo">php</span><span>PHP</span>
+            <img src="https://cdn.simpleicons.org/php/777BB4" alt="PHP" />
+            <span>PHP</span>
+          </a>
+          <a href="https://baba-niang.github.io/Guide-Bootstrap-Bigginers/" target="_blank" rel="noreferrer" className="topbar-link" title="Guide Bootstrap">
+            <img src="https://cdn.simpleicons.org/bootstrap/7952B3" alt="Bootstrap" />
+            <span>Bootstrap</span>
+          </a>
+          <a href="https://baba-niang.github.io/Guide-UML-B/" target="_blank" rel="noreferrer" className="topbar-link" title="Guide UML">
+            <img src="https://cdn.simpleicons.org/uml/7B4BD3" alt="UML" />
+            <span>UML</span>
           </a>
           <span className="topbar-divider" aria-hidden="true" />
           <a href="https://github.com/Baba-Niang" target="_blank" rel="noreferrer" className="topbar-link icon-only" title="GitHub">
-            <span className="brand-logo github-logo">GH</span>
+            <img src="https://cdn.simpleicons.org/github/181717" alt="GitHub" />
           </a>
           <a href="https://www.linkedin.com/in/baba-niang-121436383" target="_blank" rel="noreferrer" className="topbar-link icon-only" title="LinkedIn">
-            <span className="brand-logo linkedin-logo">in</span>
+            <img src="https://cdn.simpleicons.org/linkedin/0A66C2" alt="LinkedIn" />
           </a>
           <a href="mailto:baba.niang.isep@gmail.com" className="topbar-link icon-only" title="Gmail">
-            <span className="brand-logo gmail-logo">M</span>
+            <img src="https://cdn.simpleicons.org/gmail/EA4335" alt="Gmail" />
           </a>
         </nav>
 
         <div className="topbar-actions">
-          <button onClick={() => setSearchOpen(true)} className="topbar-action" aria-label="Rechercher">
-            <Search size={18} />
-          </button>
+          <button onClick={() => setSearchOpen(true)} className="topbar-action" aria-label="Rechercher"><Search size={18} /></button>
           <ThemePicker />
           <button onClick={toggleDarkMode} className="topbar-action" aria-label="Mode sombre/clair">
             {darkMode ? <Sun size={17} /> : <Moon size={17} />}

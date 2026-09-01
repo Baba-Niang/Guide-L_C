@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     "Apprends le C de zéro, étape par étape, avec des schémas animés, des quiz et des mini-défis. Une pédagogie progressive : je comprends, je sais lire, je sais faire.",
   keywords: ["Langage C", "Apprentissage C", "Pointeurs", "Variables", "Mémoire", "Programmation"],
   authors: [{ name: "Baba Niang" }],
+  icons: { icon: "/Guide-L_C/logo-c.svg" },
 };
 
 export default function RootLayout({
