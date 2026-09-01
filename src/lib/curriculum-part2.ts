@@ -255,6 +255,18 @@ int main(void) {
         subtitle: "Maîtriser les boucles",
         blocks: [
           {
+            kind: "production",
+            title: "Construire une boucle",
+            syntax: "for (initialisation; condition; mise_a_jour) {\n    // instructions\n}\n\nwhile (condition) {\n    // instructions\n}",
+            rules: [
+              "for est pratique quand on connaît le nombre d’itérations.",
+              "while répète tant que la condition est vraie.",
+              "do...while exécute au moins une fois.",
+              "Éviter une condition qui ne devient jamais fausse.",
+            ],
+            example: "for (int i = 0; i < 5; i++) {\n    printf(\"%d\\n\", i);\n}",
+          },
+          {
             kind: "error",
             title: "Erreur : boucle infinie",
             bad: `int i = 0;
@@ -605,6 +617,23 @@ int main(void) {
         title: "Je sais faire",
         subtitle: "Écrire ses propres fonctions",
         blocks: [
+          {
+            kind: "production",
+            title: "Déclarer, définir et appeler une fonction",
+            syntax: "type_retour nom(type1 param1, type2 param2);\n\ntype_retour nom(type1 param1, type2 param2) {\n    return valeur;\n}",
+            prototype: "type_retour nom(type1 param1, type2 param2);",
+            parameters: [
+              { name: "paramètres", desc: "valeurs reçues par la fonction ; en C elles sont passées par valeur." },
+              { name: "void", desc: "aucun paramètre ou aucun retour selon sa position." },
+            ],
+            returns: "La valeur après return, ou aucune valeur si le type de retour est void.",
+            rules: [
+              "Mettre le prototype avant le premier appel si la définition vient plus bas.",
+              "Passage par valeur : modifier param ne modifie pas la variable appelante.",
+              "Pour modifier la variable appelante, passer son adresse avec un pointeur.",
+            ],
+            example: "void doubler(int *x);\n\nvoid doubler(int *x) {\n    *x = *x * 2;\n}\n\nint n = 5;\ndoubler(&n);",
+          },
           {
             kind: "challenge",
             variant: "fill",
@@ -1018,6 +1047,18 @@ int main(void) {
         title: "Je sais faire",
         subtitle: "Parcourir sans déborder",
         blocks: [
+          {
+            kind: "production",
+            title: "Déclarer, remplir et parcourir un tableau",
+            syntax: "type tableau[taille];\ntableau[index] = valeur;\nvaleur = tableau[index];",
+            rules: [
+              "Le premier indice est 0.",
+              "Le dernier indice est taille - 1.",
+              "Ne jamais accéder à tableau[taille].",
+              "Pour connaître la taille d’un tableau local : sizeof(tableau) / sizeof(tableau[0]).",
+            ],
+            example: "int notes[3] = {12, 15, 18};\nfor (int i = 0; i < 3; i++) {\n    printf(\"%d\\n\", notes[i]);\n}",
+          },
           {
             kind: "error",
             title: "Erreur : débordement (off-by-one)",
@@ -1512,6 +1553,23 @@ int main(void) {
         title: "Je sais faire",
         subtitle: "Éviter les pièges mortels",
         blocks: [
+          {
+            kind: "production",
+            title: "Déclarer et utiliser un pointeur",
+            syntax: "type *ptr;\nptr = &variable;\nvaleur = *ptr;\n*ptr = nouvelle_valeur;",
+            parameters: [
+              { name: "* dans la déclaration", desc: "indique que ptr est un pointeur vers un type." },
+              { name: "&variable", desc: "donne l’adresse mémoire de variable." },
+              { name: "*ptr", desc: "déréférence : accède à la valeur située à cette adresse." },
+            ],
+            returns: "Un pointeur contient une adresse ; *ptr donne la valeur pointée.",
+            rules: [
+              "Le type du pointeur doit correspondre au type visé.",
+              "Ne jamais déréférencer un pointeur NULL ou non initialisé.",
+              "Passage par adresse : f(&x) permet à f de modifier x via *ptr.",
+            ],
+            example: "int age = 20;\nint *p = &age;\nprintf(\"%d\\n\", *p);\n*p = 21;",
+          },
           {
             kind: "comparisonTable",
             title: "Les 3 pièges mortels des pointeurs",

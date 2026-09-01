@@ -28,6 +28,17 @@ export interface RecipeToken {
   role: RecipeTokenRole;
 }
 
+export interface ProductionBlock {
+  kind: "production";
+  title: string;
+  syntax: string;
+  prototype?: string;
+  parameters?: { name: string; desc: string }[];
+  returns?: string;
+  rules?: string[];
+  example?: string;
+}
+
 export interface RecipeBlock {
   kind: "recipe";
   /** ex: "La formule pour déclarer une variable" */
@@ -230,7 +241,8 @@ export type PedBlock =
   | QuizBlock
   | RecapBlock
   | TextBlock
-  | RecipeBlock;
+  | RecipeBlock
+  | ProductionBlock;
 
 export interface ChapterLevel {
   id: "comprendre" | "lire" | "faire";

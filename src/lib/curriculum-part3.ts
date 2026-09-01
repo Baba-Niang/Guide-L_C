@@ -143,6 +143,24 @@ int main(void) {
         subtitle: "Manipuler les chaînes",
         blocks: [
           {
+            kind: "production",
+            title: "Manipuler une chaîne de caractères",
+            syntax: "char chaine[TAILLE];\nchar chaine[] = \"texte\";\nfgets(chaine, TAILLE, stdin);",
+            prototype: "size_t strlen(const char *s);\nchar *strcpy(char *dest, const char *src);\nint strcmp(const char *s1, const char *s2);",
+            parameters: [
+              { name: "chaine", desc: "tableau de char terminé par '\\0'." },
+              { name: "TAILLE", desc: "capacité du tableau, incluant la place du caractère final '\\0'." },
+            ],
+            returns: "strlen retourne la longueur ; strcmp retourne 0 si les chaînes sont égales.",
+            rules: [
+              "Une chaîne C se termine par '\\0'.",
+              "Ne pas utiliser == pour comparer le contenu de deux chaînes.",
+              "Préférer fgets pour lire une ligne avec une taille maximale.",
+              "Inclure <string.h> pour strlen, strcpy, strcmp, etc.",
+            ],
+            example: "char nom[50];\nfgets(nom, sizeof nom, stdin);\nprintf(\"%zu\\n\", strlen(nom));",
+          },
+          {
             kind: "error",
             title: "Erreur : tableau trop petit",
             bad: `char nom[4] = "Baba";`,
@@ -451,6 +469,18 @@ p.x = p.y + 5;`,
         title: "Je sais faire",
         subtitle: "Structurer ses données",
         blocks: [
+          {
+            kind: "production",
+            title: "Déclarer et utiliser une structure",
+            syntax: "struct Nom {\n    type champ1;\n    type champ2;\n};\n\nstruct Nom variable;\nvariable.champ1 = valeur;",
+            rules: [
+              "La définition se termine par ;.",
+              "Accès à un champ avec .",
+              "Avec un pointeur de structure, utiliser ->",
+              "typedef permet de créer un nom de type plus court.",
+            ],
+            example: "typedef struct {\n    char nom[50];\n    int age;\n} Etudiant;\n\nEtudiant e = {\"Baba\", 20};\nprintf(\"%d\\n\", e.age);",
+          },
           {
             kind: "error",
             title: "Erreur : affecter une chaîne avec =",
@@ -846,6 +876,24 @@ int main(void) {
         subtitle: "Allouer et libérer correctement",
         blocks: [
           {
+            kind: "production",
+            title: "Allouer et libérer de la mémoire dynamiquement",
+            syntax: "#include <stdlib.h>\ntype *ptr = malloc(nb * sizeof *ptr);\nif (ptr == NULL) { /* échec */ }\nfree(ptr);\nptr = NULL;",
+            prototype: "void *malloc(size_t size);\nvoid free(void *ptr);\nvoid *realloc(void *ptr, size_t size);",
+            parameters: [
+              { name: "size", desc: "nombre d’octets demandés." },
+              { name: "ptr", desc: "adresse du bloc à libérer avec free." },
+            ],
+            returns: "malloc/realloc renvoient une adresse, ou NULL en cas d’échec.",
+            rules: [
+              "Toujours vérifier le résultat de malloc/calloc/realloc.",
+              "Chaque allocation réussie doit être libérée une fois.",
+              "Ne pas utiliser un pointeur après free.",
+              "sizeof *ptr évite de répéter le type.",
+            ],
+            example: "int n = 5;\nint *tab = malloc(n * sizeof *tab);\nif (tab == NULL) return 1;\ntab[0] = 42;\nfree(tab);\ntab = NULL;",
+          },
+          {
             kind: "error",
             title: "Erreur : oublier free (fuite mémoire)",
             bad: `int *p = malloc(100 * sizeof(int));
@@ -1136,6 +1184,25 @@ int main(void) {
         title: "Je sais faire",
         subtitle: "Bonnes pratiques et pièges",
         blocks: [
+          {
+            kind: "production",
+            title: "Ouvrir, lire/écrire et fermer un fichier",
+            syntax: "#include <stdio.h>\nFILE *f = fopen(\"nom.txt\", \"r\");\nif (f == NULL) { /* erreur */ }\n/* lire ou écrire */\nfclose(f);",
+            prototype: "FILE *fopen(const char *filename, const char *mode);\nint fclose(FILE *stream);\nint fprintf(FILE *stream, const char *format, ...);\nint fscanf(FILE *stream, const char *format, ...);",
+            parameters: [
+              { name: "filename", desc: "nom ou chemin du fichier." },
+              { name: "mode", desc: "\"r\" lecture, \"w\" écriture avec écrasement, \"a\" ajout." },
+              { name: "FILE *", desc: "pointeur vers le flux ouvert ; il faut le vérifier avant toute lecture/écriture." },
+            ],
+            returns: "fopen retourne FILE* ou NULL ; fclose retourne 0 si la fermeture réussit.",
+            rules: [
+              "1 fopen réussi = 1 fclose.",
+              "Toujours tester f == NULL.",
+              "fgets lit une ligne ; fprintf écrit formaté ; fscanf lit formaté.",
+              "Le mode \"w\" peut effacer le contenu existant.",
+            ],
+            example: "#include <stdio.h>\n\nFILE *f = fopen(\"data.txt\", \"r\");\nif (f == NULL) return 1;\n\nchar ligne[100];\nwhile (fgets(ligne, sizeof ligne, f)) {\n    printf(\"%s\", ligne);\n}\nfclose(f);",
+          },
           {
             kind: "error",
             title: "Erreur : oublier de vérifier fopen",
@@ -1467,6 +1534,18 @@ gcc math.o main.o -o programme
         subtitle: "Écrire un module propre",
         blocks: [
           {
+            kind: "production",
+            title: "Créer un module .h + .c",
+            syntax: "// math.h\nint addition(int a, int b);\n\n// math.c\n#include \"math.h\"\nint addition(int a, int b) { return a + b; }\n\n// main.c\n#include \"math.h\"\n\n// compilation\ngcc main.c math.c -o programme",
+            rules: [
+              ".h = interface : prototypes, types, constantes.",
+              ".c = implémentation : corps des fonctions.",
+              "Utiliser des gardes #ifndef/#define/#endif ou #pragma once.",
+              "Compiler tous les .c nécessaires à l’édition de liens.",
+            ],
+            example: "#ifndef MATH_H\n#define MATH_H\nint addition(int a, int b);\n#endif",
+          },
+          {
             kind: "error",
             title: "Erreur : oublier les gardes d'inclusion",
             bad: `// math.h sans gardes
@@ -1793,6 +1872,17 @@ int main(void) {
         subtitle: "Écrire des récursions",
         blocks: [
           {
+            kind: "production",
+            title: "Écrire une fonction récursive",
+            syntax: "type nom(parametres) {\n    if (cas_de_base) return resultat;\n    return nom(parametre_plus_proche_du_base);\n}",
+            rules: [
+              "Toujours définir un cas de base.",
+              "Chaque appel doit rapprocher le problème du cas de base.",
+              "Sans progression, récursion infinie et débordement de pile.",
+            ],
+            example: "int factorielle(int n) {\n    if (n <= 1) return 1;\n    return n * factorielle(n - 1);\n}",
+          },
+          {
             kind: "error",
             title: "Erreur : oublier le cas de base",
             bad: `int factorielle(int n) {
@@ -2084,6 +2174,18 @@ int main(void) {
         subtitle: "Utiliser avancé",
         blocks: [
           {
+            kind: "production",
+            title: "Utiliser les pointeurs avancés",
+            syntax: "type **pp;          // pointeur vers pointeur\npp = &ptr;\n\nretour (*fonction)(args); // pointeur de fonction",
+            prototype: "void changer(int **p);\nint appliquer(int (*fn)(int), int x);",
+            rules: [
+              "** sert à accéder à une adresse qui contient elle-même une adresse.",
+              "Un pointeur de fonction stocke l’adresse d’une fonction compatible avec sa signature.",
+              "Les types doivent correspondre exactement à l’usage attendu.",
+            ],
+            example: "void changer(int **p) {\n    *p = NULL;\n}\n\nint *ptr = NULL;\nchanger(&ptr);",
+          },
+          {
             kind: "error",
             title: "Erreur : déborder du tableau avec un pointeur",
             bad: `int t[3] = {1, 2, 3};
@@ -2358,6 +2460,19 @@ int main(void) {
         title: "Je sais faire",
         subtitle: "Programmer robustement",
         blocks: [
+          {
+            kind: "production",
+            title: "Construire un programme C robuste",
+            syntax: "gcc -Wall -Wextra -g fichier.c -o programme\n./programme\ngdb ./programme",
+            prototype: "assert(expression);",
+            rules: [
+              "Compiler avec -Wall -Wextra pour révéler les erreurs et mauvaises pratiques.",
+              "Ajouter -g pour obtenir les informations utiles au débogueur.",
+              "Tester les entrées, les retours de fonctions et les allocations.",
+              "Corriger la cause de l’erreur, pas seulement le symptôme.",
+            ],
+            example: "gcc -Wall -Wextra -g main.c -o main\n./main\ngdb ./main",
+          },
           {
             kind: "error",
             title: "Bug : variable non initialisée",

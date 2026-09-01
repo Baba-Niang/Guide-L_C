@@ -13,13 +13,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const githubRepo = process.env.GITHUB_REPOSITORY?.split("/")[1] || "";
+const publicBase = process.env.GITHUB_ACTIONS === "true" && githubRepo ? `/${githubRepo}` : "";
+
 export const metadata: Metadata = {
   title: "Langage C — Guide Interactif",
   description:
-    "Apprends le C de zéro, étape par étape, avec des schémas animés, des quiz et des mini-défis. Une pédagogie progressive : je comprends, je sais lire, je sais faire.",
+    "Apprends le C de zéro, étape par étape, avec des schémas animés, des quiz et des mini-défis.",
   keywords: ["Langage C", "Apprentissage C", "Pointeurs", "Variables", "Mémoire", "Programmation"],
   authors: [{ name: "Baba Niang" }],
-  icons: { icon: "/Guide-L_C/logo-c.svg" },
+  icons: { icon: `${publicBase}/logo-c.svg` },
 };
 
 export default function RootLayout({

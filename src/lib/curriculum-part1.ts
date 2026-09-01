@@ -151,6 +151,20 @@ int main(void) {
         subtitle: "Compiler et exécuter ton premier programme",
         blocks: [
           {
+            kind: "production",
+            title: "Écrire, compiler et exécuter un programme C",
+            syntax: "// 1. écrire\n// 2. compiler : gcc fichier.c -o programme\n// 3. exécuter : ./programme",
+            prototype: "int main(void);",
+            returns: "0 par convention si le programme se termine correctement.",
+            rules: [
+              "Un fichier source C se termine par .c.",
+              "Chaque instruction se termine par ;.",
+              "main est le point d’entrée du programme.",
+              "Pour printf/scanf, inclure <stdio.h>.",
+            ],
+            example: "#include <stdio.h>\n\nint main(void) {\n    printf(\"Bonjour\\n\");\n    return 0;\n}",
+          },
+          {
             kind: "text",
             paragraphs: [
               "Tu as 3 étapes à reproduire dans ton terminal. On suppose que tu as enregistré le code précédent dans un fichier `bonjour.c`.",
@@ -501,6 +515,25 @@ int main(void) {
         subtitle: "Manipuler les variables",
         blocks: [
           {
+            kind: "production",
+            title: "Déclarer et utiliser une variable",
+            syntax: "type nom;\ntype nom = valeur;\nnom = nouvelle_valeur;",
+            prototype: "int printf(const char *format, ...);\nint scanf(const char *format, ...);",
+            parameters: [
+              { name: "type", desc: "détermine la nature et la taille de la donnée." },
+              { name: "nom", desc: "identifiant de la variable, sans espace ni mot réservé." },
+              { name: "valeur", desc: "donnée compatible avec le type." },
+            ],
+            returns: "Une déclaration crée une variable ; une affectation modifie sa valeur.",
+            rules: [
+              "Commencer par une lettre ou _ ; pas par un chiffre.",
+              "Lettres, chiffres et _ uniquement.",
+              "C sensible à la casse : age et Age sont différents.",
+              "Initialiser une variable avant de la lire.",
+            ],
+            example: "int age = 20;\nfloat prix = 12.5f;\nchar initiale = 'B';",
+          },
+          {
             kind: "challenge",
             variant: "fill",
             prompt: "Complète : déclare une variable `score` de type int et initialise-la à 100.",
@@ -813,6 +846,19 @@ int main(void) {
         title: "Je sais faire",
         subtitle: "Calculer et combiner",
         blocks: [
+          {
+            kind: "production",
+            title: "Écrire une expression avec les opérateurs C",
+            syntax: "operande operateur operande\nresultat = expression;",
+            rules: [
+              "Arithmétiques : + - * / %.",
+              "Comparaison : == != < > <= >=.",
+              "Logiques : && || !.",
+              "Attention : = affecte, == compare.",
+              "Pour / entre entiers, le résultat est entier.",
+            ],
+            example: "int a = 10, b = 3;\nint somme = a + b;\nint reste = a % b;\nint ok = a >= b && b != 0;",
+          },
           {
             kind: "challenge",
             variant: "predict",
@@ -1130,6 +1176,19 @@ int main(void) {
         title: "Je sais faire",
         subtitle: "Combiner et éviter les pièges",
         blocks: [
+          {
+            kind: "production",
+            title: "Construire une condition",
+            syntax: "if (condition) {\n    // si vrai\n} else {\n    // sinon\n}",
+            prototype: "if (condition) statement",
+            rules: [
+              "La condition produit une valeur vraie (1) ou fausse (0).",
+              "Utiliser == pour comparer et = pour affecter.",
+              "else est facultatif.",
+              "Pour plusieurs cas fixes, utiliser switch/case.",
+            ],
+            example: "if (age >= 18) {\n    printf(\"Majeur\\n\");\n} else {\n    printf(\"Mineur\\n\");\n}",
+          },
           {
             kind: "error",
             title: "Erreur : oublier les accolades",

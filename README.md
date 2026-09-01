@@ -218,3 +218,8 @@ Projet pédagogique par **Baba Niang**. Libre d'utilisation et de modification �
 ## 🙏 Remerciements
 
 Pédagogie inspirée du [Guide UML-B](https://baba-niang.github.io/Guide-UML-B/) pour sa progression en 3 niveaux et son approche visuelle.
+
+
+## Pédagogie de production
+
+Chaque chapitre fournit désormais une **recette pour produire** : syntaxe, prototype, paramètres, valeur de retour, règles et exemple complet. L’objectif est de permettre à l’étudiant d’écrire son propre code, pas seulement de lire un code déjà écrit.
