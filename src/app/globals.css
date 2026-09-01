@@ -1162,3 +1162,126 @@
   .chapter-foot-nav { padding-bottom: max(0.85rem, env(safe-area-inset-bottom)); }
 }
 
+
+/* ============================================================
+   UML-INSPIRED PREMIUM TOPBAR
+   ============================================================ */
+.app-topbar {
+  height: 76px;
+  min-height: 76px;
+  background: linear-gradient(90deg, #ffffff 0%, #fbfcff 62%, var(--theme-50) 100%);
+  color: #263247;
+  padding: 0 1.15rem;
+  gap: 0;
+  border-bottom: 1px solid #e4e9f1;
+  box-shadow: 0 2px 12px rgba(31, 41, 55, 0.05);
+  position: relative;
+  z-index: 50;
+}
+.dark .app-topbar {
+  background: linear-gradient(90deg, #111827 0%, #121a2a 62%, var(--theme-900) 100%);
+  color: #eef2f7;
+  border-bottom-color: rgba(255,255,255,.08);
+}
+.topbar-profile { display:flex; align-items:center; gap:.65rem; flex-shrink:0; }
+.topbar-avatar {
+  width:48px; height:48px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background: linear-gradient(135deg, var(--theme-500), #8b5cf6);
+  color:#fff; font-weight:900; font-size:15px;
+  border:3px solid var(--theme-100);
+  box-shadow:0 0 0 2px rgba(139,92,246,.16), 0 4px 12px rgba(31,41,55,.12);
+  cursor:pointer; transition:transform .2s ease;
+}
+.topbar-avatar:hover { transform:translateY(-1px) scale(1.02); }
+.topbar-profile-name { font-size:13px; font-weight:700; line-height:1; }
+.topbar-motto {
+  margin-left:2.1rem; padding-left:2.1rem;
+  border-left:1px solid #dfe5ee;
+  color:#6b4ff6; font-weight:800; font-size:17px;
+  letter-spacing:.01em; white-space:nowrap;
+}
+.dark .topbar-motto { border-left-color:rgba(255,255,255,.12); color:var(--theme-300); }
+.topbar-links {
+  margin-left:auto; display:flex; align-items:center; gap:1.05rem;
+  padding-left:1.5rem; min-width:0;
+}
+.topbar-link {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:3px; min-width:50px; color:#556277; text-decoration:none;
+  font-size:11px; font-weight:700; transition:transform .18s ease, color .18s ease;
+}
+.topbar-link:hover { color:var(--theme-600); transform:translateY(-1px); }
+.dark .topbar-link { color:#b7c0cf; }
+.topbar-link.icon-only { min-width:42px; }
+.brand-logo {
+  width:36px; height:36px; display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; font-weight:900; border-radius:9px;
+  box-shadow:0 2px 6px rgba(15,23,42,.08);
+}
+.git-logo { background:#f05a36; color:#fff; font-size:20px; transform:rotate(45deg); border-radius:7px; }
+.git-logo::first-letter { transform:rotate(-45deg); }
+.java-logo { background:transparent; box-shadow:none; font-size:28px; }
+.bootstrap-logo { background:#6f42c1; color:#fff; font-family:Georgia,serif; font-size:27px; }
+.uml-logo { background:linear-gradient(135deg,#ffbe27 0 45%,#7b4bd3 45%); color:#fff; font-size:13px; letter-spacing:-.08em; }
+.php-logo { background:#66739b; color:#fff; font-family:Arial,sans-serif; font-size:15px; border-radius:50%; }
+.github-logo { background:#111827; color:#fff; font-size:10px; border-radius:50%; }
+.linkedin-logo { background:#0a66c2; color:#fff; font-size:21px; border-radius:5px; font-family:Arial,sans-serif; }
+.gmail-logo { background:linear-gradient(135deg,#ea4335,#fbbc04,#34a853,#4285f4); color:#fff; font-size:18px; border-radius:6px; }
+.topbar-divider { width:1px; height:42px; background:#e0e5ec; margin:0 .25rem; }
+.dark .topbar-divider { background:rgba(255,255,255,.12); }
+.topbar-actions { display:flex; align-items:center; gap:.2rem; margin-left:1rem; padding-left:1rem; border-left:1px solid #e0e5ec; }
+.dark .topbar-actions { border-left-color:rgba(255,255,255,.12); }
+.topbar-action {
+  width:38px; height:38px; border:0; background:transparent; color:inherit;
+  border-radius:10px; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:background .18s ease, color .18s ease;
+}
+.topbar-action:hover { background:var(--theme-100); color:var(--theme-700); }
+.dark .topbar-action:hover { background:rgba(255,255,255,.08); color:var(--theme-300); }
+.topbar-actions .relative > button { color:inherit; }
+.topbar-actions .relative > button:hover { background:var(--theme-100); color:var(--theme-700); }
+
+/* UML-like clean light sidebar */
+.app-sidebar {
+  width:280px;
+  background:#f8fafc;
+  color:#4d5a6e;
+  border-right:1px solid #e1e7ef;
+}
+.dark .app-sidebar { background:#111827; color:#cbd5e1; border-right-color:rgba(255,255,255,.08); }
+.app-sidebar .sb-section-title { color:#718096; font-size:.72rem; }
+.dark .app-sidebar .sb-section-title { color:#94a3b8; }
+.sb-item { color:#59667a; font-size:.86rem; opacity:1; }
+.dark .sb-item { color:#cbd5e1; }
+.sb-item:hover { background:var(--theme-50); color:var(--theme-700); }
+.dark .sb-item:hover { background:rgba(255,255,255,.06); color:var(--theme-300); }
+.sb-item.active {
+  background:linear-gradient(90deg,var(--theme-100),var(--theme-50));
+  color:var(--theme-700); border-color:transparent; font-weight:700;
+}
+.dark .sb-item.active { background:rgba(255,255,255,.08); color:var(--theme-300); }
+.sb-item .sb-num { background:#edf1f6; color:#6a7587; }
+.sb-item.active .sb-num { background:var(--theme-500); color:#fff; }
+.dark .sb-item .sb-num { background:rgba(255,255,255,.07); color:#cbd5e1; }
+
+/* Softer UML-style content canvas */
+.app-main { background:#f7f9fc; }
+.dark .app-main { background:#0d1420; }
+.chapter-hero { background:linear-gradient(135deg,var(--theme-600),var(--theme-500) 58%,var(--theme-700)); }
+.home-hero { background:radial-gradient(circle at 20% 20%, var(--theme-100), transparent 38%), linear-gradient(135deg,#f8fbff 0%,#ffffff 55%,var(--theme-50) 100%); color:#1f2937; }
+.dark .home-hero { background:radial-gradient(circle at 20% 20%,rgba(255,255,255,.07),transparent 38%),linear-gradient(135deg,#111827,#0f172a 55%,var(--theme-900)); color:#eef2f7; }
+
+@media (max-width: 1050px) {
+  .topbar-motto { display:none; }
+  .topbar-links { gap:.45rem; padding-left:.75rem; }
+  .topbar-link { min-width:40px; }
+  .topbar-link > span:last-child { display:none; }
+}
+@media (max-width: 760px) {
+  .app-topbar { height:64px; min-height:64px; padding:0 .65rem; }
+  .topbar-profile-name { display:none; }
+  .topbar-avatar { width:42px; height:42px; }
+  .topbar-links { display:none; }
+  .topbar-actions { margin-left:auto; padding-left:0; border-left:0; }
+}

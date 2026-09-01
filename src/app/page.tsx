@@ -411,7 +411,7 @@ function HomePage() {
             transition={{ duration: 0.5 }}
           >
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/12 backdrop-blur-sm text-sm mb-6 border border-white/10">
-              <Terminal size={13} /> Par Baba Niang — Guide V4
+              <Terminal size={13} /> Par Baba Niang
             </div>
             <h1 className="text-5xl md:text-7xl font-extrabold mb-3 tracking-tight">
               Langage C
@@ -868,59 +868,58 @@ export default function GuidePage() {
     <div className="app-shell">
       {/* Topbar */}
       <header className="app-topbar">
-        <div className="flex items-center gap-2 md:gap-3 flex-1 min-w-0">
-          <button
-            onClick={toggleSidebar}
-            className="p-2 rounded-lg hover:bg-white/10 transition-colors md:hidden"
-            aria-label="Menu"
-          >
-            {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
+        <div className="topbar-profile">
+          <button onClick={() => setView("home")} className="topbar-avatar" aria-label="Accueil">
+            <span>BN</span>
           </button>
-          <button
-            onClick={() => setView("home")}
-            className="flex items-center gap-2.5 hover:opacity-80 transition-opacity flex-shrink-0"
-          >
-            <div className="w-8 h-8 rounded-lg bg-white/15 flex items-center justify-center font-extrabold text-sm tracking-tight">
-              C
-            </div>
-            <div className="hidden sm:block">
-              <div className="text-[11px] font-bold leading-none tracking-wide">
-                LANGAGE C
-              </div>
-              <div className="text-[9px] text-white/50 leading-none mt-0.5 tracking-wider">
-                GUIDE INTERACTIF — V4
-              </div>
-            </div>
-          </button>
-          <button
-            onClick={() => setSearchOpen(true)}
-            className="hidden md:flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-white/8 hover:bg-white/12 transition-colors text-sm text-white/60 flex-1 max-w-xs"
-          >
-            <Search size={13} /> Rechercher...
-            <kbd className="ml-auto text-[10px] px-1.5 py-0.5 rounded bg-white/8">
-              Ctrl+K
-            </kbd>
-          </button>
+          <div className="topbar-profile-name">Baba Niang</div>
         </div>
-        <div className="flex items-center gap-1 md:gap-1.5">
-          <button
-            onClick={() => setSearchOpen(true)}
-            className="p-2 rounded-lg hover:bg-white/10 transition-colors md:hidden"
-            aria-label="Rechercher"
-          >
+
+        <div className="topbar-motto" aria-label="Devise">
+          ◆ Discipline-Constance-Rigueur ◆
+        </div>
+
+        <nav className="topbar-links" aria-label="Raccourcis Baba Niang">
+          <a href="https://baba-niang.github.io/Guide-Git-Github/" target="_blank" rel="noreferrer" className="topbar-link" title="Guide Git & GitHub">
+            <span className="brand-logo git-logo">◆</span><span>Git</span>
+          </a>
+          <a href="https://baba-niang.github.io/Guide-Java/" target="_blank" rel="noreferrer" className="topbar-link" title="Guide Java">
+            <span className="brand-logo java-logo">☕</span><span>Java</span>
+          </a>
+          <a href="https://baba-niang.github.io/Guide-Bootstrap-Bigginers/" target="_blank" rel="noreferrer" className="topbar-link" title="Guide Bootstrap">
+            <span className="brand-logo bootstrap-logo">B</span><span>Bootstrap</span>
+          </a>
+          <a href="https://baba-niang.github.io/Guide-UML-B/" target="_blank" rel="noreferrer" className="topbar-link" title="Guide UML">
+            <span className="brand-logo uml-logo">UML</span><span>UML</span>
+          </a>
+          <a href="https://baba-niang.github.io/Guide-PHP/" target="_blank" rel="noreferrer" className="topbar-link" title="Guide PHP">
+            <span className="brand-logo php-logo">php</span><span>PHP</span>
+          </a>
+          <span className="topbar-divider" aria-hidden="true" />
+          <a href="https://github.com/Baba-Niang" target="_blank" rel="noreferrer" className="topbar-link icon-only" title="GitHub">
+            <span className="brand-logo github-logo">GH</span>
+          </a>
+          <a href="https://www.linkedin.com/in/baba-niang-121436383" target="_blank" rel="noreferrer" className="topbar-link icon-only" title="LinkedIn">
+            <span className="brand-logo linkedin-logo">in</span>
+          </a>
+          <a href="mailto:baba.niang.isep@gmail.com" className="topbar-link icon-only" title="Gmail">
+            <span className="brand-logo gmail-logo">M</span>
+          </a>
+        </nav>
+
+        <div className="topbar-actions">
+          <button onClick={() => setSearchOpen(true)} className="topbar-action" aria-label="Rechercher">
             <Search size={18} />
           </button>
           <ThemePicker />
-          <button
-            onClick={toggleDarkMode}
-            className="p-2 rounded-lg hover:bg-white/10 transition-colors"
-            aria-label="Mode sombre/clair"
-          >
+          <button onClick={toggleDarkMode} className="topbar-action" aria-label="Mode sombre/clair">
             {darkMode ? <Sun size={17} /> : <Moon size={17} />}
+          </button>
+          <button onClick={toggleSidebar} className="topbar-action md:hidden" aria-label="Menu">
+            {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </header>
-
       <div className="app-body">
         {/* Mobile sidebar overlay */}
         <AnimatePresence>
@@ -998,7 +997,7 @@ export default function GuidePage() {
           </div>
           <div className="p-3 border-t border-white/5">
             <div className="text-[9px] opacity-40 text-center leading-relaxed">
-              Langage C — Guide Interactif V4
+              Langage C — Guide Interactif
               <br />
               par Baba Niang
             </div>
