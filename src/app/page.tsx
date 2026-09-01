@@ -30,6 +30,7 @@ import {
   ComparisonTableBlock,
   FlowStepsBlock,
 } from "@/components/pedagogy/blocks";
+import { RecipeCard } from "@/components/pedagogy/recipe-block";
 
 // ============================================================
 // ICON MAP
@@ -130,6 +131,9 @@ function BlockRenderer({
       )}
       {block.kind === "flowSteps" && (
         <FlowStepsBlock title={block.title} steps={block.steps} />
+      )}
+      {block.kind === "recipe" && (
+        <RecipeCard title={block.title} formula={block.formula} example={block.example} rules={block.rules} />
       )}
     </motion.div>
   );

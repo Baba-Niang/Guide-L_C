@@ -295,6 +295,67 @@ int main(void) {
             kind: "vocab",
             terms: [
               { word: "Mémoire (RAM)", def: "L'espace de travail de l'ordinateur. Coupé en millions de petites cases numérotées." },
+
+          {
+            kind: "recipe",
+            title: "La formule pour déclarer une variable",
+            formula: [
+              { text: "type", role: "type" },
+              { text: " ", role: "punct" },
+              { text: "nom", role: "nom" },
+              { text: ";", role: "punct" },
+            ],
+            example: [
+              { text: "int", role: "type" },
+              { text: " ", role: "punct" },
+              { text: "score", role: "nom" },
+              { text: ";", role: "punct" },
+            ],
+            rules: [
+              "Le nom doit commencer par une lettre ou un _ (jamais un chiffre).",
+              "Seuls les lettres, chiffres et _ sont autorisés (pas d'espace, pas d'accent).",
+              "Le C est sensible à la casse : score, Score et SCORE sont trois variables différentes.",
+              "Les mots réservés du C (int, return, if, while…) sont interdits comme noms.",
+              "Convention : utiliser le snake_case (mots en minuscules séparés par _).",
+            ],
+          },
+
+          {
+            kind: "recipe",
+            title: "La formule pour déclarer ET initialiser",
+            formula: [
+              { text: "type", role: "type" },
+              { text: " ", role: "punct" },
+              { text: "nom", role: "nom" },
+              { text: " ", role: "punct" },
+              { text: "=", role: "operator" },
+              { text: " ", role: "punct" },
+              { text: "valeur", role: "value" },
+              { text: ";", role: "punct" },
+            ],
+            example: [
+              { text: "float", role: "type" },
+              { text: " ", role: "punct" },
+              { text: "prix", role: "nom" },
+              { text: " = ", role: "punct" },
+              { text: "9.99f", role: "value" },
+              { text: ";", role: "punct" },
+            ],
+          },
+
+          {
+            kind: "challenge",
+            variant: "fill",
+            prompt: "Écris la déclaration d'une variable de type float nommée temperature, initialisée à 36.6.",
+            accept: [
+              "float temperature = 36.6;",
+              "float temperature=36.6;",
+              "float temperature =36.6;",
+              "float temperature= 36.6;",
+            ],
+            hint: "Formule : type nom = valeur;",
+            feedback: "On écrit `float temperature = 36.6;`. Le type est float, le nom est temperature (snake_case), et on termine par ;.",
+          },
               { word: "Variable", def: "Une case mémoire à laquelle on a donné un nom lisible (ex: age, prix). On y range une valeur." },
               { word: "Type", def: "La nature de ce qu'on range : un entier (int), un nombre à virgule (float), une lettre (char)." },
               { word: "Déclaration", def: "Créer la variable en donnant son type et son nom. Ex: int age;" },
@@ -570,6 +631,36 @@ int main(void) {
             kind: "vocab",
             terms: [
               { word: "Opérateur", def: "Un symbole qui effectue une opération entre des valeurs. Ex: + additionne, == compare." },
+
+          {
+            kind: "recipe",
+            title: "La formule d'une expression avec un opérateur",
+            formula: [
+              { text: "operande1", role: "nom" },
+              { text: " ", role: "punct" },
+              { text: "operateur", role: "operator" },
+              { text: " ", role: "punct" },
+              { text: "operande2", role: "nom" },
+            ],
+            example: [
+              { text: "a", role: "nom" },
+              { text: " + ", role: "operator" },
+              { text: "b", role: "nom" },
+            ],
+            rules: [
+              "L'opérateur = est l'AFFECTATION (il range une valeur). L'opérateur == est la COMPARAISON (il teste l'égalité).",
+              "Confondre = et == dans un if est l'erreur la plus sournoise du C (elle compile mais produit un bug logique).",
+            ],
+          },
+
+          {
+            kind: "challenge",
+            variant: "fill",
+            prompt: "Écris l'expression qui teste si x est strictement supérieur à 10.",
+            accept: ["x > 10", "x>10"],
+            hint: "L'opérateur de comparaison 'strictement supérieur' est >.",
+            feedback: "On écrit `x > 10`. C'est une expression booléenne qui vaut 1 (vrai) si x est plus grand que 10, sinon 0 (faux).",
+          },
               { word: "Opérande", def: "La valeur sur laquelle agit l'opérateur. Dans `a + b`, a et b sont les opérandes de +." },
               { word: "Expression", def: "Une combinaison de valeurs et d'opérateurs qui produit un résultat. Ex: `a + b * 2`." },
               { word: "Booléen", def: "Une valeur qui vaut soit vrai (1) soit faux (0). En C, c'est le résultat d'une comparaison." },
@@ -850,6 +941,54 @@ int main(void) {
             kind: "vocab",
             terms: [
               { word: "Condition", def: "Une expression qui vaut vrai (1) ou faux (0). Ex: age >= 18." },
+
+          {
+            kind: "recipe",
+            title: "La formule if / else",
+            formula: [
+              { text: "if", role: "keyword" },
+              { text: " (", role: "punct" },
+              { text: "condition", role: "nom" },
+              { text: ") {", role: "punct" },
+              { text: "\n    bloc_vrai;", role: "value" },
+              { text: "\n", role: "punct" },
+              { text: "}", role: "punct" },
+              { text: " else", role: "keyword" },
+              { text: " {", role: "punct" },
+              { text: "\n    bloc_faux;", role: "value" },
+              { text: "\n", role: "punct" },
+              { text: "}", role: "punct" },
+            ],
+            example: [
+              { text: "if", role: "keyword" },
+              { text: " (", role: "punct" },
+              { text: "age", role: "nom" },
+              { text: " >= ", role: "operator" },
+              { text: "18", role: "value" },
+              { text: ") {", role: "punct" },
+              { text: "\n    printf(\"Majeur\");", role: "value" },
+              { text: "\n", role: "punct" },
+              { text: "}", role: "punct" },
+              { text: " else", role: "keyword" },
+              { text: " {", role: "punct" },
+              { text: "\n    printf(\"Mineur\");", role: "value" },
+              { text: "\n", role: "punct" },
+              { text: "}", role: "punct" },
+            ],
+            rules: [
+              "Toujours mettre des accolades { } même pour un bloc d'une seule ligne.",
+              "Ne JAMAIS confondre = (affectation) et == (comparaison) dans la condition.",
+            ],
+          },
+
+          {
+            kind: "challenge",
+            variant: "fill",
+            prompt: "Écris un if qui affiche 'Positif' si n est supérieur ou égal à 0.",
+            accept: ["if (n >= 0) {", "if(n>=0){", "if (n>=0){", "if (n >= 0){"],
+            hint: "if (condition) { … } — l'opérateur >= signifie 'supérieur ou égal'.",
+            feedback: "On écrit `if (n >= 0) {`. La condition n >= 0 est vraie pour 0 et tous les nombres positifs.",
+          },
               { word: "if", def: "Mot-clé qui exécute un bloc SI la condition est vraie." },
               { word: "else", def: "Mot-clé qui exécute un bloc SI la condition du if est fausse. Optionnel." },
               { word: "else if", def: "Pour chaîner plusieurs conditions. On teste la 2e si la 1re est fausse." },

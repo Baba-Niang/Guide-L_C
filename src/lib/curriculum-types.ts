@@ -19,6 +19,27 @@ export type IconName =
 
 // ---------- Block types ----------
 
+// ---------- Recipe block ("savoir produire") ----------
+
+export type RecipeTokenRole = "type" | "nom" | "operator" | "value" | "punct" | "keyword";
+
+export interface RecipeToken {
+  text: string;
+  role: RecipeTokenRole;
+}
+
+export interface RecipeBlock {
+  kind: "recipe";
+  /** ex: "La formule pour déclarer une variable" */
+  title: string;
+  /** le patron générique et abstrait, tokenisé pour la couleur */
+  formula: RecipeToken[];
+  /** une instanciation concrète du patron, même tokenisation */
+  example: RecipeToken[];
+  /** règles complémentaires : nommage, contraintes, pièges de syntaxe */
+  rules?: string[];
+}
+
 export interface StoryBlock {
   kind: "story";
   /** short eyebrow / chapter context */
@@ -208,7 +229,8 @@ export type PedBlock =
   | ChallengeBlock
   | QuizBlock
   | RecapBlock
-  | TextBlock;
+  | TextBlock
+  | RecipeBlock;
 
 export interface ChapterLevel {
   id: "comprendre" | "lire" | "faire";
