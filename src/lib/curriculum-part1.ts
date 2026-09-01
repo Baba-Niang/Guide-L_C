@@ -151,20 +151,6 @@ int main(void) {
         subtitle: "Compiler et exécuter ton premier programme",
         blocks: [
           {
-            kind: "production",
-            title: "Écrire, compiler et exécuter un programme C",
-            syntax: "// 1. écrire\n// 2. compiler : gcc fichier.c -o programme\n// 3. exécuter : ./programme",
-            prototype: "int main(void);",
-            returns: "0 par convention si le programme se termine correctement.",
-            rules: [
-              "Un fichier source C se termine par .c.",
-              "Chaque instruction se termine par ;.",
-              "main est le point d’entrée du programme.",
-              "Pour printf/scanf, inclure <stdio.h>.",
-            ],
-            example: "#include <stdio.h>\n\nint main(void) {\n    printf(\"Bonjour\\n\");\n    return 0;\n}",
-          },
-          {
             kind: "text",
             paragraphs: [
               "Tu as 3 étapes à reproduire dans ton terminal. On suppose que tu as enregistré le code précédent dans un fichier `bonjour.c`.",
@@ -309,67 +295,6 @@ int main(void) {
             kind: "vocab",
             terms: [
               { word: "Mémoire (RAM)", def: "L'espace de travail de l'ordinateur. Coupé en millions de petites cases numérotées." },
-
-          {
-            kind: "recipe",
-            title: "La formule pour déclarer une variable",
-            formula: [
-              { text: "type", role: "type" },
-              { text: " ", role: "punct" },
-              { text: "nom", role: "nom" },
-              { text: ";", role: "punct" },
-            ],
-            example: [
-              { text: "int", role: "type" },
-              { text: " ", role: "punct" },
-              { text: "score", role: "nom" },
-              { text: ";", role: "punct" },
-            ],
-            rules: [
-              "Le nom doit commencer par une lettre ou un _ (jamais un chiffre).",
-              "Seuls les lettres, chiffres et _ sont autorisés (pas d'espace, pas d'accent).",
-              "Le C est sensible à la casse : score, Score et SCORE sont trois variables différentes.",
-              "Les mots réservés du C (int, return, if, while…) sont interdits comme noms.",
-              "Convention : utiliser le snake_case (mots en minuscules séparés par _).",
-            ],
-          },
-
-          {
-            kind: "recipe",
-            title: "La formule pour déclarer ET initialiser",
-            formula: [
-              { text: "type", role: "type" },
-              { text: " ", role: "punct" },
-              { text: "nom", role: "nom" },
-              { text: " ", role: "punct" },
-              { text: "=", role: "operator" },
-              { text: " ", role: "punct" },
-              { text: "valeur", role: "value" },
-              { text: ";", role: "punct" },
-            ],
-            example: [
-              { text: "float", role: "type" },
-              { text: " ", role: "punct" },
-              { text: "prix", role: "nom" },
-              { text: " = ", role: "punct" },
-              { text: "9.99f", role: "value" },
-              { text: ";", role: "punct" },
-            ],
-          },
-
-          {
-            kind: "challenge",
-            variant: "fill",
-            prompt: "Écris la déclaration d'une variable de type float nommée temperature, initialisée à 36.6.",
-            accept: [
-              "float temperature = 36.6;",
-              "float temperature=36.6;",
-              "float temperature =36.6;",
-              "float temperature= 36.6;",
-            ],
-            hint: "Formule : type nom = valeur;",
-            feedback: "On écrit `float temperature = 36.6;`. Le type est float, le nom est temperature (snake_case), et on termine par ;.",
-          },
               { word: "Variable", def: "Une case mémoire à laquelle on a donné un nom lisible (ex: age, prix). On y range une valeur." },
               { word: "Type", def: "La nature de ce qu'on range : un entier (int), un nombre à virgule (float), une lettre (char)." },
               { word: "Déclaration", def: "Créer la variable en donnant son type et son nom. Ex: int age;" },
@@ -515,25 +440,6 @@ int main(void) {
         subtitle: "Manipuler les variables",
         blocks: [
           {
-            kind: "production",
-            title: "Déclarer et utiliser une variable",
-            syntax: "type nom;\ntype nom = valeur;\nnom = nouvelle_valeur;",
-            prototype: "int printf(const char *format, ...);\nint scanf(const char *format, ...);",
-            parameters: [
-              { name: "type", desc: "détermine la nature et la taille de la donnée." },
-              { name: "nom", desc: "identifiant de la variable, sans espace ni mot réservé." },
-              { name: "valeur", desc: "donnée compatible avec le type." },
-            ],
-            returns: "Une déclaration crée une variable ; une affectation modifie sa valeur.",
-            rules: [
-              "Commencer par une lettre ou _ ; pas par un chiffre.",
-              "Lettres, chiffres et _ uniquement.",
-              "C sensible à la casse : age et Age sont différents.",
-              "Initialiser une variable avant de la lire.",
-            ],
-            example: "int age = 20;\nfloat prix = 12.5f;\nchar initiale = 'B';",
-          },
-          {
             kind: "challenge",
             variant: "fill",
             prompt: "Complète : déclare une variable `score` de type int et initialise-la à 100.",
@@ -664,36 +570,6 @@ int main(void) {
             kind: "vocab",
             terms: [
               { word: "Opérateur", def: "Un symbole qui effectue une opération entre des valeurs. Ex: + additionne, == compare." },
-
-          {
-            kind: "recipe",
-            title: "La formule d'une expression avec un opérateur",
-            formula: [
-              { text: "operande1", role: "nom" },
-              { text: " ", role: "punct" },
-              { text: "operateur", role: "operator" },
-              { text: " ", role: "punct" },
-              { text: "operande2", role: "nom" },
-            ],
-            example: [
-              { text: "a", role: "nom" },
-              { text: " + ", role: "operator" },
-              { text: "b", role: "nom" },
-            ],
-            rules: [
-              "L'opérateur = est l'AFFECTATION (il range une valeur). L'opérateur == est la COMPARAISON (il teste l'égalité).",
-              "Confondre = et == dans un if est l'erreur la plus sournoise du C (elle compile mais produit un bug logique).",
-            ],
-          },
-
-          {
-            kind: "challenge",
-            variant: "fill",
-            prompt: "Écris l'expression qui teste si x est strictement supérieur à 10.",
-            accept: ["x > 10", "x>10"],
-            hint: "L'opérateur de comparaison 'strictement supérieur' est >.",
-            feedback: "On écrit `x > 10`. C'est une expression booléenne qui vaut 1 (vrai) si x est plus grand que 10, sinon 0 (faux).",
-          },
               { word: "Opérande", def: "La valeur sur laquelle agit l'opérateur. Dans `a + b`, a et b sont les opérandes de +." },
               { word: "Expression", def: "Une combinaison de valeurs et d'opérateurs qui produit un résultat. Ex: `a + b * 2`." },
               { word: "Booléen", def: "Une valeur qui vaut soit vrai (1) soit faux (0). En C, c'est le résultat d'une comparaison." },
@@ -847,19 +723,6 @@ int main(void) {
         subtitle: "Calculer et combiner",
         blocks: [
           {
-            kind: "production",
-            title: "Écrire une expression avec les opérateurs C",
-            syntax: "operande operateur operande\nresultat = expression;",
-            rules: [
-              "Arithmétiques : + - * / %.",
-              "Comparaison : == != < > <= >=.",
-              "Logiques : && || !.",
-              "Attention : = affecte, == compare.",
-              "Pour / entre entiers, le résultat est entier.",
-            ],
-            example: "int a = 10, b = 3;\nint somme = a + b;\nint reste = a % b;\nint ok = a >= b && b != 0;",
-          },
-          {
             kind: "challenge",
             variant: "predict",
             prompt: "Que vaut `7 / 2` en C (avec des int) ?",
@@ -987,54 +850,6 @@ int main(void) {
             kind: "vocab",
             terms: [
               { word: "Condition", def: "Une expression qui vaut vrai (1) ou faux (0). Ex: age >= 18." },
-
-          {
-            kind: "recipe",
-            title: "La formule if / else",
-            formula: [
-              { text: "if", role: "keyword" },
-              { text: " (", role: "punct" },
-              { text: "condition", role: "nom" },
-              { text: ") {", role: "punct" },
-              { text: "\n    bloc_vrai;", role: "value" },
-              { text: "\n", role: "punct" },
-              { text: "}", role: "punct" },
-              { text: " else", role: "keyword" },
-              { text: " {", role: "punct" },
-              { text: "\n    bloc_faux;", role: "value" },
-              { text: "\n", role: "punct" },
-              { text: "}", role: "punct" },
-            ],
-            example: [
-              { text: "if", role: "keyword" },
-              { text: " (", role: "punct" },
-              { text: "age", role: "nom" },
-              { text: " >= ", role: "operator" },
-              { text: "18", role: "value" },
-              { text: ") {", role: "punct" },
-              { text: "\n    printf(\"Majeur\");", role: "value" },
-              { text: "\n", role: "punct" },
-              { text: "}", role: "punct" },
-              { text: " else", role: "keyword" },
-              { text: " {", role: "punct" },
-              { text: "\n    printf(\"Mineur\");", role: "value" },
-              { text: "\n", role: "punct" },
-              { text: "}", role: "punct" },
-            ],
-            rules: [
-              "Toujours mettre des accolades { } même pour un bloc d'une seule ligne.",
-              "Ne JAMAIS confondre = (affectation) et == (comparaison) dans la condition.",
-            ],
-          },
-
-          {
-            kind: "challenge",
-            variant: "fill",
-            prompt: "Écris un if qui affiche 'Positif' si n est supérieur ou égal à 0.",
-            accept: ["if (n >= 0) {", "if(n>=0){", "if (n>=0){", "if (n >= 0){"],
-            hint: "if (condition) { … } — l'opérateur >= signifie 'supérieur ou égal'.",
-            feedback: "On écrit `if (n >= 0) {`. La condition n >= 0 est vraie pour 0 et tous les nombres positifs.",
-          },
               { word: "if", def: "Mot-clé qui exécute un bloc SI la condition est vraie." },
               { word: "else", def: "Mot-clé qui exécute un bloc SI la condition du if est fausse. Optionnel." },
               { word: "else if", def: "Pour chaîner plusieurs conditions. On teste la 2e si la 1re est fausse." },
@@ -1176,19 +991,6 @@ int main(void) {
         title: "Je sais faire",
         subtitle: "Combiner et éviter les pièges",
         blocks: [
-          {
-            kind: "production",
-            title: "Construire une condition",
-            syntax: "if (condition) {\n    // si vrai\n} else {\n    // sinon\n}",
-            prototype: "if (condition) statement",
-            rules: [
-              "La condition produit une valeur vraie (1) ou fausse (0).",
-              "Utiliser == pour comparer et = pour affecter.",
-              "else est facultatif.",
-              "Pour plusieurs cas fixes, utiliser switch/case.",
-            ],
-            example: "if (age >= 18) {\n    printf(\"Majeur\\n\");\n} else {\n    printf(\"Mineur\\n\");\n}",
-          },
           {
             kind: "error",
             title: "Erreur : oublier les accolades",

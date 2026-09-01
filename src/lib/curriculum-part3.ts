@@ -143,24 +143,6 @@ int main(void) {
         subtitle: "Manipuler les chaînes",
         blocks: [
           {
-            kind: "production",
-            title: "Manipuler une chaîne de caractères",
-            syntax: "char chaine[TAILLE];\nchar chaine[] = \"texte\";\nfgets(chaine, TAILLE, stdin);",
-            prototype: "size_t strlen(const char *s);\nchar *strcpy(char *dest, const char *src);\nint strcmp(const char *s1, const char *s2);",
-            parameters: [
-              { name: "chaine", desc: "tableau de char terminé par '\\0'." },
-              { name: "TAILLE", desc: "capacité du tableau, incluant la place du caractère final '\\0'." },
-            ],
-            returns: "strlen retourne la longueur ; strcmp retourne 0 si les chaînes sont égales.",
-            rules: [
-              "Une chaîne C se termine par '\\0'.",
-              "Ne pas utiliser == pour comparer le contenu de deux chaînes.",
-              "Préférer fgets pour lire une ligne avec une taille maximale.",
-              "Inclure <string.h> pour strlen, strcpy, strcmp, etc.",
-            ],
-            example: "char nom[50];\nfgets(nom, sizeof nom, stdin);\nprintf(\"%zu\\n\", strlen(nom));",
-          },
-          {
             kind: "error",
             title: "Erreur : tableau trop petit",
             bad: `char nom[4] = "Baba";`,
@@ -274,58 +256,6 @@ int main(void) {
             kind: "vocab",
             terms: [
               { word: "struct", def: "Mot-clé pour définir un type composé de plusieurs champs." },
-
-          {
-            kind: "recipe",
-            title: "La formule pour définir une struct",
-            formula: [
-              { text: "struct", role: "keyword" },
-              { text: " ", role: "punct" },
-              { text: "Nom", role: "nom" },
-              { text: " {", role: "punct" },
-              { text: "\n    ", role: "punct" },
-              { text: "type", role: "type" },
-              { text: " ", role: "punct" },
-              { text: "champ", role: "nom" },
-              { text: ";", role: "punct" },
-              { text: "\n", role: "punct" },
-              { text: "}", role: "punct" },
-              { text: ";", role: "punct" },
-            ],
-            example: [
-              { text: "struct", role: "keyword" },
-              { text: " Point", role: "nom" },
-              { text: " {", role: "punct" },
-              { text: "\n    ", role: "punct" },
-              { text: "int", role: "type" },
-              { text: " x;", role: "punct" },
-              { text: "\n    ", role: "punct" },
-              { text: "int", role: "type" },
-              { text: " y;", role: "punct" },
-              { text: "\n", role: "punct" },
-              { text: "}", role: "punct" },
-              { text: ";", role: "punct" },
-            ],
-            rules: [
-              "Le ; final après } est OBLIGATOIRE (erreur fréquente de l'oublier).",
-              "On accède à un champ avec le point : variable.champ.",
-              "On accède via un pointeur avec -> : pointeur->champ (raccourci pour (*pointeur).champ).",
-            ],
-          },
-
-          {
-            kind: "challenge",
-            variant: "fill",
-            prompt: "Définis une struct Rectangle avec deux champs int : largeur et hauteur.",
-            accept: [
-              "struct Rectangle { int largeur; int hauteur; };",
-              "struct Rectangle {int largeur; int hauteur;};",
-              "struct Rectangle{int largeur;int hauteur;};",
-              "struct Rectangle { int largeur; int hauteur; }",
-            ],
-            hint: "struct Nom { type champ; type champ; }; — n'oublie pas le ; final.",
-            feedback: "On écrit `struct Rectangle { int largeur; int hauteur; };`. Le ; après } est obligatoire.",
-          },
               { word: "Champ (membre)", def: "Une variable à l'intérieur de la struct. Ex: le champ age de Etudiant." },
               { word: ".", def: "Opérateur d'accès à un champ. `e.age` = le champ age de la variable e." },
               { word: "->", def: "Opérateur d'accès via un pointeur. `ptr->age` = `(*ptr).age`." },
@@ -470,18 +400,6 @@ p.x = p.y + 5;`,
         subtitle: "Structurer ses données",
         blocks: [
           {
-            kind: "production",
-            title: "Déclarer et utiliser une structure",
-            syntax: "struct Nom {\n    type champ1;\n    type champ2;\n};\n\nstruct Nom variable;\nvariable.champ1 = valeur;",
-            rules: [
-              "La définition se termine par ;.",
-              "Accès à un champ avec .",
-              "Avec un pointeur de structure, utiliser ->",
-              "typedef permet de créer un nom de type plus court.",
-            ],
-            example: "typedef struct {\n    char nom[50];\n    int age;\n} Etudiant;\n\nEtudiant e = {\"Baba\", 20};\nprintf(\"%d\\n\", e.age);",
-          },
-          {
             kind: "error",
             title: "Erreur : affecter une chaîne avec =",
             bad: `struct Etudiant e;
@@ -621,57 +539,6 @@ int main(void) {
             kind: "vocab",
             terms: [
               { word: "Tas (heap)", def: "La zone de mémoire gérée par malloc/free. À opposer à la pile (stack), qui gère les variables locales." },
-
-          {
-            kind: "recipe",
-            title: "La formule malloc",
-            formula: [
-              { text: "type", role: "type" },
-              { text: " *", role: "punct" },
-              { text: "nomPointeur", role: "nom" },
-              { text: " = ", role: "punct" },
-              { text: "malloc", role: "keyword" },
-              { text: "(", role: "punct" },
-              { text: "n", role: "nom" },
-              { text: " * ", role: "operator" },
-              { text: "sizeof", role: "keyword" },
-              { text: "(", role: "punct" },
-              { text: "type", role: "type" },
-              { text: "));", role: "punct" },
-            ],
-            example: [
-              { text: "int", role: "type" },
-              { text: " *", role: "punct" },
-              { text: "tab", role: "nom" },
-              { text: " = ", role: "punct" },
-              { text: "malloc", role: "keyword" },
-              { text: "(", role: "punct" },
-              { text: "5", role: "nom" },
-              { text: " * ", role: "operator" },
-              { text: "sizeof", role: "keyword" },
-              { text: "(", role: "punct" },
-              { text: "int", role: "type" },
-              { text: "));", role: "punct" },
-            ],
-            rules: [
-              "malloc prend des OCTETS. sizeof(type) donne la taille d'un type en octets.",
-              "Toujours vérifier si (ptr == NULL) après malloc (échec possible si plus de mémoire).",
-              "Toujours appeler free(ptr) quand on n'a plus besoin du bloc (sinon fuite mémoire).",
-            ],
-          },
-
-          {
-            kind: "challenge",
-            variant: "fill",
-            prompt: "Alloue un tableau de n double via malloc.",
-            accept: [
-              "double *tab = malloc(n * sizeof(double));",
-              "double *tab = malloc(n*sizeof(double));",
-              "double* tab = malloc(n * sizeof(double));",
-            ],
-            hint: "type *nom = malloc(n * sizeof(type)); — le type est double.",
-            feedback: "On écrit `double *tab = malloc(n * sizeof(double));`. malloc réserve n * 8 octets (sizeof(double) = 8).",
-          },
               { word: "malloc(size)", def: "Demande `size` octets au système. Renvoie l'adresse du bloc (ou NULL si échec)." },
               { word: "free(ptr)", def: "Libère le bloc pointé par ptr. À appeler quand tu n'as plus besoin de la mémoire." },
               { word: "sizeof(type)", def: "Donne la taille en octets d'un type. Ex: sizeof(int) = 4. Indispensable pour allouer la bonne quantité." },
@@ -875,24 +742,6 @@ int main(void) {
         title: "Je sais faire",
         subtitle: "Allouer et libérer correctement",
         blocks: [
-          {
-            kind: "production",
-            title: "Allouer et libérer de la mémoire dynamiquement",
-            syntax: "#include <stdlib.h>\ntype *ptr = malloc(nb * sizeof *ptr);\nif (ptr == NULL) { /* échec */ }\nfree(ptr);\nptr = NULL;",
-            prototype: "void *malloc(size_t size);\nvoid free(void *ptr);\nvoid *realloc(void *ptr, size_t size);",
-            parameters: [
-              { name: "size", desc: "nombre d’octets demandés." },
-              { name: "ptr", desc: "adresse du bloc à libérer avec free." },
-            ],
-            returns: "malloc/realloc renvoient une adresse, ou NULL en cas d’échec.",
-            rules: [
-              "Toujours vérifier le résultat de malloc/calloc/realloc.",
-              "Chaque allocation réussie doit être libérée une fois.",
-              "Ne pas utiliser un pointeur après free.",
-              "sizeof *ptr évite de répéter le type.",
-            ],
-            example: "int n = 5;\nint *tab = malloc(n * sizeof *tab);\nif (tab == NULL) return 1;\ntab[0] = 42;\nfree(tab);\ntab = NULL;",
-          },
           {
             kind: "error",
             title: "Erreur : oublier free (fuite mémoire)",
@@ -1185,25 +1034,6 @@ int main(void) {
         subtitle: "Bonnes pratiques et pièges",
         blocks: [
           {
-            kind: "production",
-            title: "Ouvrir, lire/écrire et fermer un fichier",
-            syntax: "#include <stdio.h>\nFILE *f = fopen(\"nom.txt\", \"r\");\nif (f == NULL) { /* erreur */ }\n/* lire ou écrire */\nfclose(f);",
-            prototype: "FILE *fopen(const char *filename, const char *mode);\nint fclose(FILE *stream);\nint fprintf(FILE *stream, const char *format, ...);\nint fscanf(FILE *stream, const char *format, ...);",
-            parameters: [
-              { name: "filename", desc: "nom ou chemin du fichier." },
-              { name: "mode", desc: "\"r\" lecture, \"w\" écriture avec écrasement, \"a\" ajout." },
-              { name: "FILE *", desc: "pointeur vers le flux ouvert ; il faut le vérifier avant toute lecture/écriture." },
-            ],
-            returns: "fopen retourne FILE* ou NULL ; fclose retourne 0 si la fermeture réussit.",
-            rules: [
-              "1 fopen réussi = 1 fclose.",
-              "Toujours tester f == NULL.",
-              "fgets lit une ligne ; fprintf écrit formaté ; fscanf lit formaté.",
-              "Le mode \"w\" peut effacer le contenu existant.",
-            ],
-            example: "#include <stdio.h>\n\nFILE *f = fopen(\"data.txt\", \"r\");\nif (f == NULL) return 1;\n\nchar ligne[100];\nwhile (fgets(ligne, sizeof ligne, f)) {\n    printf(\"%s\", ligne);\n}\nfclose(f);",
-          },
-          {
             kind: "error",
             title: "Erreur : oublier de vérifier fopen",
             bad: `FILE *f = fopen("data.txt", "r");
@@ -1349,53 +1179,6 @@ int main(void) {
             kind: "vocab",
             terms: [
               { word: ".h (header)", def: "Le fichier d'en-tête. Contient les prototypes de fonctions, les types, les constantes. C'est l'INTERFACE du module." },
-
-          {
-            kind: "recipe",
-            title: "La formule du garde d'inclusion",
-            formula: [
-              { text: "#ifndef", role: "keyword" },
-              { text: " ", role: "punct" },
-              { text: "NOM_H", role: "nom" },
-              { text: "\n", role: "punct" },
-              { text: "#define", role: "keyword" },
-              { text: " ", role: "punct" },
-              { text: "NOM_H", role: "nom" },
-              { text: "\n", role: "punct" },
-              { text: "// … déclarations …", role: "value" },
-              { text: "\n", role: "punct" },
-              { text: "#endif", role: "keyword" },
-            ],
-            example: [
-              { text: "#ifndef", role: "keyword" },
-              { text: " MATH_H", role: "nom" },
-              { text: "\n", role: "punct" },
-              { text: "#define", role: "keyword" },
-              { text: " MATH_H", role: "nom" },
-              { text: "\n", role: "punct" },
-              { text: "int carre(int a);", role: "value" },
-              { text: "\n", role: "punct" },
-              { text: "#endif", role: "keyword" },
-            ],
-            rules: [
-              "NOM_H = nom du fichier en majuscules avec _H (ex: utils.h → UTILS_H).",
-              "#ifndef vérifie si le nom est déjà défini. Si oui, tout le contenu est sauté.",
-              "Ce garde empêche les erreurs de redéfinition quand le .h est inclus plusieurs fois.",
-            ],
-          },
-
-          {
-            kind: "challenge",
-            variant: "fill",
-            prompt: "Écris les deux premières lignes du garde d'inclusion pour un fichier helpers.h.",
-            accept: [
-              "#ifndef HELPERS_H\n#define HELPERS_H",
-              "#ifndef HELPERS_H #define HELPERS_H",
-              "#ifndef HELPERS_H  #define HELPERS_H",
-            ],
-            hint: "#ifndef NOM_H puis #define NOM_H — NOM_H = nom du fichier en majuscules + _H.",
-            feedback: "On écrit `#ifndef HELPERS_H` puis `#define HELPERS_H`. Convention : nom du fichier en majuscules, suffixe _H.",
-          },
               { word: ".c", def: "Le fichier source. Contient le CODE des fonctions. C'est l'IMPLÉMENTATION." },
               { word: "#include", def: "Inclut un fichier .h dans un .c. Comme dire « je veux utiliser ce module »." },
               { word: "Prototype", def: "La signature d'une fonction sans son corps. Ex: `int carre(int);` (avec un ; au lieu du corps)." },
@@ -1533,18 +1316,6 @@ gcc math.o main.o -o programme
         title: "Je sais faire",
         subtitle: "Écrire un module propre",
         blocks: [
-          {
-            kind: "production",
-            title: "Créer un module .h + .c",
-            syntax: "// math.h\nint addition(int a, int b);\n\n// math.c\n#include \"math.h\"\nint addition(int a, int b) { return a + b; }\n\n// main.c\n#include \"math.h\"\n\n// compilation\ngcc main.c math.c -o programme",
-            rules: [
-              ".h = interface : prototypes, types, constantes.",
-              ".c = implémentation : corps des fonctions.",
-              "Utiliser des gardes #ifndef/#define/#endif ou #pragma once.",
-              "Compiler tous les .c nécessaires à l’édition de liens.",
-            ],
-            example: "#ifndef MATH_H\n#define MATH_H\nint addition(int a, int b);\n#endif",
-          },
           {
             kind: "error",
             title: "Erreur : oublier les gardes d'inclusion",
@@ -1872,17 +1643,6 @@ int main(void) {
         subtitle: "Écrire des récursions",
         blocks: [
           {
-            kind: "production",
-            title: "Écrire une fonction récursive",
-            syntax: "type nom(parametres) {\n    if (cas_de_base) return resultat;\n    return nom(parametre_plus_proche_du_base);\n}",
-            rules: [
-              "Toujours définir un cas de base.",
-              "Chaque appel doit rapprocher le problème du cas de base.",
-              "Sans progression, récursion infinie et débordement de pile.",
-            ],
-            example: "int factorielle(int n) {\n    if (n <= 1) return 1;\n    return n * factorielle(n - 1);\n}",
-          },
-          {
             kind: "error",
             title: "Erreur : oublier le cas de base",
             bad: `int factorielle(int n) {
@@ -2005,47 +1765,6 @@ int main(void) {
             kind: "vocab",
             terms: [
               { word: "Arithmétique des pointeurs", def: "On peut faire ptr + 1, ptr + n sur un pointeur. Ça avance de n ÉLÉMENTS (pas n octets)." },
-
-          {
-            kind: "recipe",
-            title: "La formule d'un pointeur sur fonction",
-            formula: [
-              { text: "typeRetour", role: "type" },
-              { text: " (*", role: "punct" },
-              { text: "nomPointeur", role: "nom" },
-              { text: ")(", role: "punct" },
-              { text: "typeParam1", role: "type" },
-              { text: ", ", role: "punct" },
-              { text: "typeParam2", role: "type" },
-              { text: ");", role: "punct" },
-            ],
-            example: [
-              { text: "int", role: "type" },
-              { text: " (*", role: "punct" },
-              { text: "operation", role: "nom" },
-              { text: ")(", role: "punct" },
-              { text: "int", role: "type" },
-              { text: ", ", role: "punct" },
-              { text: "int", role: "type" },
-              { text: ");", role: "punct" },
-            ],
-            rules: [
-              "Les parenthèses autour de *nom sont OBLIGATOIRES (sinon ce serait une fonction qui renvoie un pointeur).",
-              "On appelle la fonction via le pointeur : operation(a, b) ou (*operation)(a, b).",
-            ],
-          },
-
-          {
-            kind: "challenge",
-            variant: "fill",
-            prompt: "Déclare un pointeur sur fonction nommé cmp qui prend deux int et renvoie un int.",
-            accept: [
-              "int (*cmp)(int, int);",
-              "int (*cmp)(int,int);",
-            ],
-            hint: "typeRetour (*nom)(type1, type2); — les () autour de *nom sont obligatoires.",
-            feedback: "On écrit `int (*cmp)(int, int);`. Les parenthèses autour de *cmp sont cruciales : sans elles, ce serait une fonction renvoyant int*.",
-          },
               { word: "Pointeur sur fonction", def: "Un pointeur qui contient l'ADRESSE d'une fonction. Permet d'appeler la fonction indirectement, ou de la passer en paramètre." },
               { word: "void*", def: "Un pointeur générique qui peut pointer vers n'importe quel type. À utiliser avec précaution (pas de vérification de type)." },
               { word: "Double pointeur (int**)", def: "Un pointeur qui pointe vers un pointeur. Utile pour modifier un pointeur dans une fonction." },
@@ -2173,18 +1892,6 @@ int main(void) {
         title: "Je sais faire",
         subtitle: "Utiliser avancé",
         blocks: [
-          {
-            kind: "production",
-            title: "Utiliser les pointeurs avancés",
-            syntax: "type **pp;          // pointeur vers pointeur\npp = &ptr;\n\nretour (*fonction)(args); // pointeur de fonction",
-            prototype: "void changer(int **p);\nint appliquer(int (*fn)(int), int x);",
-            rules: [
-              "** sert à accéder à une adresse qui contient elle-même une adresse.",
-              "Un pointeur de fonction stocke l’adresse d’une fonction compatible avec sa signature.",
-              "Les types doivent correspondre exactement à l’usage attendu.",
-            ],
-            example: "void changer(int **p) {\n    *p = NULL;\n}\n\nint *ptr = NULL;\nchanger(&ptr);",
-          },
           {
             kind: "error",
             title: "Erreur : déborder du tableau avec un pointeur",
@@ -2460,19 +2167,6 @@ int main(void) {
         title: "Je sais faire",
         subtitle: "Programmer robustement",
         blocks: [
-          {
-            kind: "production",
-            title: "Construire un programme C robuste",
-            syntax: "gcc -Wall -Wextra -g fichier.c -o programme\n./programme\ngdb ./programme",
-            prototype: "assert(expression);",
-            rules: [
-              "Compiler avec -Wall -Wextra pour révéler les erreurs et mauvaises pratiques.",
-              "Ajouter -g pour obtenir les informations utiles au débogueur.",
-              "Tester les entrées, les retours de fonctions et les allocations.",
-              "Corriger la cause de l’erreur, pas seulement le symptôme.",
-            ],
-            example: "gcc -Wall -Wextra -g main.c -o main\n./main\ngdb ./main",
-          },
           {
             kind: "error",
             title: "Bug : variable non initialisée",

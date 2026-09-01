@@ -397,107 +397,6 @@
 .dark .vocab-card .v-def strong { color: var(--theme-200); }
 
 /* ============================================================
-   RECIPE CARD — generic formula for "savoir produire"
-   ============================================================ */
-.recipe-card {
-  border-radius: 1rem;
-  overflow: hidden;
-  border: 1px solid var(--theme-200);
-  background: linear-gradient(135deg, var(--theme-50), var(--card));
-}
-.dark .recipe-card {
-  background: linear-gradient(135deg, hsla(var(--theme-h), var(--theme-s), 35%, 0.12), transparent);
-  border-color: hsla(var(--theme-h), var(--theme-s), 35%, 0.25);
-}
-.recipe-card .rc-header {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.25rem;
-  background: var(--theme-100);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--theme-700);
-}
-.dark .recipe-card .rc-header {
-  background: hsla(var(--theme-h), var(--theme-s), 35%, 0.18);
-  color: var(--theme-200);
-}
-.recipe-card .rc-title {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--foreground);
-  padding: 1rem 1.25rem 0.5rem;
-}
-.recipe-card .rc-formula {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0;
-  padding: 0.5rem 1.25rem;
-  font-family: var(--font-geist-mono);
-  font-size: 1.1rem;
-  line-height: 1.8;
-  min-height: 2.5rem;
-}
-.recipe-card .rc-example-label {
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted-foreground);
-  padding: 0.5rem 1.25rem 0;
-}
-.recipe-card .rc-example {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0;
-  padding: 0.25rem 1.25rem 0.75rem;
-  font-family: var(--font-geist-mono);
-  font-size: 0.92rem;
-  line-height: 1.7;
-  opacity: 0.8;
-}
-.recipe-card .rc-rules {
-  padding: 0 1.25rem 1rem;
-}
-.recipe-card .rc-rules ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.recipe-card .rc-rules li {
-  position: relative;
-  padding-left: 1.25rem;
-  font-size: 0.88rem;
-  line-height: 1.65;
-  color: var(--foreground);
-  margin-bottom: 0.35rem;
-}
-.recipe-card .rc-rules li::before {
-  content: "\2022";
-  position: absolute;
-  left: 0;
-  color: var(--theme-500);
-  font-weight: 700;
-}
-
-/* Recipe token colors — coherent with .syn-* */
-.recipe-type    { color: #ffcb6b; font-weight: 600; }
-.recipe-keyword { color: #c792ea; font-weight: 600; }
-.recipe-nom     {
-  color: var(--theme-500);
-  font-weight: 700;
-  border-bottom: 2px dashed var(--theme-400);
-}
-.recipe-operator { color: #89ddff; }
-.recipe-punct    { color: #89ddff; opacity: 0.8; }
-.recipe-value    { color: #f78c6c; }
-
-/* ============================================================
    STORY BLOCK — narrative text with progressive reveal
    ============================================================ */
 .story-step {
@@ -1537,10 +1436,10 @@
 
 /* Compact bottom navigation; buttons use the active user theme */
 .chapter-foot-nav {
-  padding: 0 .8rem .55rem;
-  min-height: 0;
-  background: transparent;
-  backdrop-filter: none;
+  padding: .38rem .8rem;
+  min-height: 46px;
+  background: rgba(255,255,255,.96);
+  backdrop-filter: blur(12px);
 }
 .chapter-foot-nav button {
   padding: .48rem .9rem !important;
@@ -1664,52 +1563,57 @@ main,.main-content,.content,.fiche-container,.fiche-body{min-width:0;max-width:1
 }
 
 /* ============================================================
-   PRODUCTION / RECIPE CARDS — savoir écrire, pas seulement lire
+   PRODUCTION RECIPE — pedagogical core
    ============================================================ */
-.production-card {
-  margin: 1.4rem 0; padding: 1.45rem; border: 1px solid var(--theme-200);
-  border-radius: 1.2rem; background: linear-gradient(135deg,var(--theme-50),var(--card));
-  box-shadow: 0 8px 24px rgba(15,23,42,.05);
+.production-recipe {
+  margin: 1.25rem 0 1.5rem;
+  padding: 1.35rem;
+  border: 1px solid var(--theme-200);
+  border-radius: 1.25rem;
+  background: linear-gradient(135deg, var(--theme-50), var(--card));
+  box-shadow: 0 8px 28px rgba(20,32,27,.05);
 }
-.production-card h3 { margin:.35rem 0 1rem; font-size:1.35rem; font-weight:800; }
-.pc-badge { display:inline-flex; padding:.38rem .7rem; border-radius:999px; background:var(--theme-100); color:var(--theme-700); font-size:.72rem; font-weight:800; letter-spacing:.08em; }
-.pc-label { margin:.8rem 0 .4rem; font-size:.82rem; font-weight:800; color:var(--theme-700); text-transform:uppercase; letter-spacing:.08em; }
-.pc-code { margin:0; padding:1rem 1.1rem; overflow:auto; border-radius:.9rem; background:var(--code-bg); color:var(--code-fg); font: 500 1rem/1.7 var(--font-geist-mono), monospace; white-space:pre; }
-.pc-code-soft { border:1px solid var(--theme-200); }
-.pc-example { margin-bottom:.8rem; }
-.pc-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:.65rem; margin-top:.8rem; }
-.pc-detail { display:flex; flex-direction:column; gap:.25rem; padding:.8rem; border-radius:.8rem; background:var(--card); border:1px solid var(--border); }
-.pc-detail strong { color:var(--theme-600); font-family:var(--font-geist-mono),monospace; }
-.pc-detail span,.pc-return,.pc-rules { font-size:1rem; line-height:1.6; }
-.pc-return { margin-top:.8rem; padding:.8rem 1rem; border-left:4px solid var(--theme-400); border-radius:.65rem; background:var(--card); }
-.pc-rules { margin:.9rem 0 0; padding-left:1.25rem; }
-.pc-rules li { margin:.35rem 0; }
-
-.chapter-level-chip { display:inline-flex; align-items:center; gap:.55rem; margin:0 0 1rem; padding:.42rem .72rem; border-radius:999px; background:var(--theme-100); color:var(--theme-700); font-weight:800; font-size:.85rem; }
-.clc-num { width:24px; height:24px; display:grid; place-items:center; border-radius:50%; background:var(--theme-500); color:#fff; font-size:.72rem; }
-.chapter-position { display:flex; align-items:center; gap:.65rem; }
-.chapter-position-step { padding:.28rem .62rem; border-radius:999px; background:var(--theme-100); color:var(--theme-700); font-weight:800; font-size:.78rem; }
-.chapter-position-count { color:var(--muted-foreground); font-size:.8rem; font-weight:700; }
-
-@media (min-width: 769px) {
-  .content-wide { width:min(1320px, calc(100% - 1.5rem)); }
-  .story-step,.text-block,.ped-card p,.ped-card li,.vocab-card .v-def { font-size:1.12rem; line-height:1.75; }
-  .code-body { font-size:1.05rem; line-height:1.78; }
+.production-head { margin-bottom: 1rem; }
+.production-badge, .production-label {
+  display:inline-flex; align-items:center; gap:.45rem;
+  color:var(--theme-700); font-weight:800; letter-spacing:.08em;
+  font-size:.82rem; text-transform:uppercase;
 }
-@media (max-width: 768px) {
-  .production-card { padding:1rem; }
-  .production-card h3 { font-size:1.15rem; }
-  .pc-code { font-size:.9rem; }
-  .pc-detail span,.pc-return,.pc-rules { font-size:.94rem; }
-  .chapter-position-step { max-width:42vw; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-}
+.production-head h3 { margin:.45rem 0 .2rem; font-size:clamp(1.45rem,2.4vw,2rem); }
+.production-head p { margin:0; color:var(--muted-foreground); font-size:1.05rem; line-height:1.55; }
+.production-grid { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); gap:1rem; }
+.production-syntax, .production-steps { background:var(--card); border:1px solid var(--border); border-radius:1rem; padding:1rem; }
+.production-syntax pre { margin:.75rem 0; padding:1rem; overflow:auto; border-radius:.8rem; background:var(--code-bg); color:var(--code-fg); font:600 1rem/1.65 var(--font-geist-mono),monospace; }
+.production-parts { display:grid; gap:.5rem; }
+.production-part { display:flex; align-items:flex-start; gap:.65rem; padding:.55rem .65rem; border-radius:.7rem; background:var(--muted); }
+.production-part code { flex:0 0 auto; color:var(--theme-700); font-weight:800; font-family:var(--font-geist-mono),monospace; }
+.production-part span { color:var(--foreground); line-height:1.45; }
+.production-steps { display:flex; flex-direction:column; gap:.45rem; }
+.production-step { position:relative; display:grid; grid-template-columns:34px 1fr; gap:.7rem; padding:.55rem .4rem; }
+.production-step-num { width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--theme-500);color:#fff;font-weight:800; }
+.production-step strong { font-size:1rem; }
+.production-step p { margin:.15rem 0 0; color:var(--muted-foreground); line-height:1.45; font-size:.95rem; }
+.production-step-arrow { display:none; }
+.production-api { margin-top:1rem; display:grid; gap:.6rem; }
+.production-api > div { display:flex; gap:.75rem; align-items:flex-start; padding:.7rem .8rem; border-radius:.75rem; background:var(--card); border:1px dashed var(--theme-200); }
+.production-api strong { min-width:72px; color:var(--theme-700); }
+.production-api code { overflow:auto; font-family:var(--font-geist-mono),monospace; }
+.chapter-end-sentinel { height:1px; width:100%; }
+.chapter-foot-nav { animation: navAppear .22s ease-out; }
+@keyframes navAppear { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
 
-/* Final navigation behavior: navigation appears at the end of the lesson,
-   not as a permanent bar over the learning content. */
-.chapter-foot-nav {
-  position: static !important;
-  width: 100%;
-  margin-top: 1.25rem;
-  margin-bottom: .5rem;
-  justify-content: space-between;
+@media (min-width:769px) {
+  .content-wide { width:min(1360px, calc(100% - 2rem)); }
+  .app-main { font-size:1.08rem; }
+  .level-tab { font-size:1rem; padding:.8rem 1rem; }
+}
+@media (max-width:768px) {
+  .production-recipe { padding:.9rem; border-radius:1rem; }
+  .production-grid { grid-template-columns:1fr; }
+  .production-head h3 { font-size:1.35rem; }
+  .production-head p { font-size:.98rem; }
+  .production-syntax pre { font-size:.82rem; }
+  .production-part { flex-direction:column; gap:.25rem; }
+  .production-part span, .production-step p { font-size:.9rem; }
+  .production-api > div { flex-direction:column; gap:.25rem; }
 }
