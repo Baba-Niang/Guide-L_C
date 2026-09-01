@@ -1492,3 +1492,30 @@ main,.main-content,.content,.fiche-container,.fiche-body{min-width:0;max-width:1
  p,li,label,.description,.fiche-description,.fiche-body,.lesson-content,.content-text{font-size:.98rem}
  pre{font-size:.78rem}
 }
+
+
+/* V9 — Sidebar horizontal compactness only
+   Keep vertical spacing/design unchanged. */
+@media (min-width: 769px) {
+  .app-sidebar {
+    width: 235px !important;
+  }
+  .app-sidebar .sb-section-title {
+    padding-left: .7rem;
+    padding-right: .55rem;
+  }
+  .sb-item {
+    margin-left: .3rem;
+    margin-right: .3rem;
+    padding-left: .65rem;
+    padding-right: .55rem;
+    gap: .5rem;
+  }
+  .sb-item .sb-status { margin-left: .25rem; }
+  .sb-progress-card {
+    width: calc(100% - 1rem);
+    margin-left: .5rem;
+    margin-right: .5rem;
+  }
+}
+
