@@ -1519,3 +1519,45 @@ main,.main-content,.content,.fiche-container,.fiche-body{min-width:0;max-width:1
   }
 }
 
+
+/* V10 — Typographie UML + navigation basse minimaliste
+   Uniquement : agrandir les textes et supprimer la bande blanche autour
+   des boutons Précédent/Suivant. Aucun contenu/chapitre modifié. */
+@media (min-width: 769px) {
+  body { font-size: 1.14rem; line-height: 1.7; }
+  p, li, label, .description, .fiche-description,
+  .fiche-body, .lesson-content, .content-text,
+  .story-step { font-size: 1.16rem; line-height: 1.7; }
+  .chapter-hero h1 { font-size: clamp(2.45rem, 4.2vw, 3.6rem); }
+  .chapter-hero p { font-size: 1.2rem; line-height: 1.65; }
+  .ped-card h3 { font-size: 1.7rem; }
+  .code-body { font-size: 1.02rem; line-height: 1.75; }
+}
+
+/* La navigation ne doit plus créer une grande bande blanche.
+   Seuls les deux boutons restent visibles. */
+.chapter-foot-nav {
+  min-height: 0 !important;
+  height: auto !important;
+  padding: 0 1.1rem .45rem !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+  border: 0 !important;
+}
+.chapter-foot-nav button {
+  font-size: 1rem !important;
+  padding: .62rem 1rem !important;
+}
+.chapter-foot-nav > span { font-size: .95rem !important; }
+
+@media (max-width: 768px) {
+  .chapter-foot-nav {
+    padding: 0 .7rem max(.35rem, env(safe-area-inset-bottom)) !important;
+  }
+  .chapter-foot-nav button {
+    font-size: .95rem !important;
+    padding: .58rem .85rem !important;
+  }
+  .chapter-foot-nav > span { font-size: .88rem !important; }
+}
