@@ -1662,3 +1662,18 @@ main,.main-content,.content,.fiche-container,.fiche-body{min-width:0;max-width:1
   }
   .chapter-foot-nav > span { font-size: .88rem !important; }
 }
+
+
+/* V11 — indicateur de niveau compact, sans barre Je comprends/Je sais lire/Je sais faire */
+.level-progress-badge {
+  display: inline-flex; align-items: center; gap: .65rem;
+  padding: .42rem .85rem; border-radius: 999px;
+  background: var(--theme-100); color: var(--theme-700);
+  border: 1px solid var(--theme-200); font-weight: 700;
+  white-space: nowrap;
+}
+.level-progress-count { opacity: .72; font-weight: 600; font-variant-numeric: tabular-nums; }
+@media (max-width: 640px) {
+  .level-progress-badge { padding: .38rem .65rem; gap: .4rem; font-size: .78rem; }
+  .level-progress-count { font-size: .72rem; }
+}
