@@ -883,6 +883,10 @@ export default function GuidePage() {
             <img src="https://cdn.simpleicons.org/git/F05032" alt="Git" />
             <span>Git</span>
           </a>
+          <a href="https://www.java.com/" target="_blank" rel="noreferrer" className="topbar-link" title="Java">
+            <img src="https://cdn.simpleicons.org/openjdk/F89820" alt="Java" />
+            <span>Java</span>
+          </a>
           <a href="https://baba-niang.github.io/Guide-PHP/" target="_blank" rel="noreferrer" className="topbar-link" title="Guide PHP">
             <img src="https://cdn.simpleicons.org/php/777BB4" alt="PHP" />
             <span>PHP</span>
@@ -897,13 +901,13 @@ export default function GuidePage() {
           </a>
           <span className="topbar-divider" aria-hidden="true" />
           <a href="https://github.com/Baba-Niang" target="_blank" rel="noreferrer" className="topbar-link icon-only" title="GitHub">
-            <img src="https://cdn.simpleicons.org/github/181717" alt="GitHub" />
+            <img src="/Guide-L_C/icons/github.svg" alt="GitHub" />
           </a>
           <a href="https://www.linkedin.com/in/baba-niang-121436383" target="_blank" rel="noreferrer" className="topbar-link icon-only" title="LinkedIn">
-            <img src="https://cdn.simpleicons.org/linkedin/0A66C2" alt="LinkedIn" />
+            <img src="/Guide-L_C/icons/linkedin.svg" alt="LinkedIn" />
           </a>
           <a href="mailto:baba.niang.isep@gmail.com" className="topbar-link icon-only" title="Gmail">
-            <img src="https://cdn.simpleicons.org/gmail/EA4335" alt="Gmail" />
+            <img src="/Guide-L_C/icons/gmail.svg" alt="Gmail" />
           </a>
         </nav>
 
@@ -992,6 +996,26 @@ export default function GuidePage() {
                 );
               })}
             </div>
+            <button
+              onClick={() => { setView("progress"); setSidebarOpen(false); }}
+              className="sb-progress-card"
+              aria-label="Voir votre progression"
+            >
+              <div className="sb-progress-head">
+                <div className="sb-progress-icon"><Trophy size={16} /></div>
+                <span>Votre progression</span>
+                <ChevronRight size={16} className="ml-auto" />
+              </div>
+              <div className="sb-progress-row">
+                <div className="sb-progress-ring-lg" style={{ ["--progress" as string]: `${gp}%` }}>
+                  <span>{gp}%</span>
+                </div>
+                <div>
+                  <strong>{Math.round((gp / 100) * TOTAL_CHAPTERS)} / {TOTAL_CHAPTERS} leçons</strong>
+                  <small>Continuez votre apprentissage</small>
+                </div>
+              </div>
+            </button>
           </div>
           <div className="p-3 border-t border-white/5">
             <div className="text-[9px] opacity-40 text-center leading-relaxed">

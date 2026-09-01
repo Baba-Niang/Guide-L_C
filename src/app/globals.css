@@ -1374,3 +1374,93 @@
   .content-wide { width:calc(100% - 1rem); }
   .chapter-hero { padding:1.6rem 1rem 1.45rem; }
 }
+
+/* ============================================================
+   FINAL COMPACT UML-STYLE HEADER + NAVIGATION
+   ============================================================ */
+.app-topbar {
+  height: 68px;
+  min-height: 68px;
+  padding: 0 1.25rem;
+  gap: .85rem;
+}
+.topbar-avatar { width: 48px; height: 48px; border-width: 2px; }
+.topbar-profile { gap: .55rem; }
+.topbar-profile-name { font-size: 14px; }
+.topbar-profile-role { font-size: 10px; }
+.topbar-motto { margin-left: 1rem; padding-left: 1.15rem; font-size: 16px; }
+.topbar-links { gap: .72rem; padding-left: .85rem; }
+.topbar-link { min-width: 43px; font-size: 10px; gap: 1px; }
+.topbar-link img, .topbar-link.icon-only img { width: 30px; height: 30px; }
+.topbar-link.icon-only { min-width: 36px; }
+.topbar-divider { height: 34px; }
+.topbar-actions { gap: .1rem; margin-left: .15rem; padding-left: .5rem; }
+.topbar-action { width: 34px; height: 34px; }
+
+/* Keep the learning canvas wide, like UML */
+.content-wide { width: min(1280px, calc(100% - 1.5rem)); }
+
+/* Sidebar progress card */
+.sb-progress-card {
+  width: calc(100% - 1.5rem);
+  margin: .8rem .75rem .35rem;
+  padding: .8rem .85rem;
+  border: 1px solid #e3e9ef;
+  border-radius: 1rem;
+  background: #fff;
+  color: #263247;
+  text-align: left;
+  box-shadow: 0 4px 14px rgba(31,41,55,.06);
+  cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.sb-progress-card:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(31,41,55,.08); border-color: var(--theme-200); }
+.sb-progress-head { display:flex; align-items:center; gap:.5rem; font-weight:800; font-size:.84rem; }
+.sb-progress-icon { color:var(--theme-600); display:flex; }
+.sb-progress-row { display:flex; align-items:center; gap:.75rem; margin-top:.65rem; }
+.sb-progress-row strong { display:block; font-size:.82rem; }
+.sb-progress-row small { display:block; margin-top:.18rem; color:#718096; font-size:.68rem; }
+.sb-progress-ring-lg {
+  --progress: 0%;
+  width: 54px; height:54px; border-radius:50%; flex-shrink:0;
+  display:grid; place-items:center;
+  background: conic-gradient(var(--theme-500) var(--progress), #e7ebf0 0);
+  position:relative;
+}
+.sb-progress-ring-lg::before { content:""; position:absolute; inset:6px; border-radius:50%; background:#fff; }
+.sb-progress-ring-lg span { position:relative; z-index:1; font-size:.72rem; font-weight:800; color:#374151; }
+.dark .sb-progress-card { background:#111827; color:#e5e7eb; border-color:rgba(255,255,255,.1); }
+.dark .sb-progress-row small { color:#94a3b8; }
+.dark .sb-progress-ring-lg::before { background:#111827; }
+.dark .sb-progress-ring-lg span { color:#e5e7eb; }
+
+/* Compact bottom navigation; buttons use the active user theme */
+.chapter-foot-nav {
+  padding: .38rem .8rem;
+  min-height: 46px;
+  background: rgba(255,255,255,.96);
+  backdrop-filter: blur(12px);
+}
+.chapter-foot-nav button {
+  padding: .48rem .9rem !important;
+  border-radius: .7rem !important;
+  background: var(--theme-500);
+  color: #fff;
+  font-size: .82rem !important;
+  box-shadow: 0 3px 10px hsla(var(--theme-h),var(--theme-s),35%,.16);
+}
+.chapter-foot-nav button:hover:not(:disabled) { background: var(--theme-600); }
+.chapter-foot-nav button:disabled { background: var(--theme-200); color: #fff; opacity: .55; }
+.chapter-foot-nav > span { font-size: .8rem !important; color: var(--muted-foreground); }
+.dark .chapter-foot-nav { background: rgba(19,24,31,.94); }
+
+@media (max-width: 1100px) {
+  .topbar-motto { display:none; }
+  .topbar-links { margin-left:auto; }
+}
+@media (max-width: 760px) {
+  .app-topbar { height: 60px; min-height:60px; padding:0 .65rem; }
+  .topbar-avatar { width:42px; height:42px; }
+  .topbar-links { display:none; }
+  .content-wide { width:calc(100% - 1rem); }
+}
